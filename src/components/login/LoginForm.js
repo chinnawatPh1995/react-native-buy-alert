@@ -52,7 +52,6 @@ class LoginForm extends Component {
                             underlineColorAndroid="transparent"
                             style={styles.input}
                             onChangeText={this.onEmailChange.bind(this)}
-                            // onChangeText = {(email => this.validatorEP('email', email))}
                             value = {this.props.email}
                         />
                     </View>

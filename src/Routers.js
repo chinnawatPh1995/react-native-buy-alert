@@ -34,6 +34,7 @@ const Routers = () =>{
                     key ="login"
                     component={Login}
                     hideNavBar= {true}
+                    initial
                 />
                 <Scene
                     key = "register"
@@ -45,12 +46,12 @@ const Routers = () =>{
                     headerTintColor="#fff"
                     onRight={() => console.log('') }
                 />
-                <Scene
+                <Tabs
                     showLabel={false}
                     key="main"
                     tabs={true}
                     tabBarStyle={styles.tabBar}
-                    initial
+                    
                     tabBarPosition="bottom"
                 >
                     <Scene  key="tab1" 
@@ -75,7 +76,7 @@ const Routers = () =>{
                             component={Setting}
                             icon={TabIcon}
                     />
-                </Scene>
+                </Tabs>
             </Stack>  
         </Router>
     );

@@ -10,6 +10,7 @@ import {
     PASSWORD_FAIL,
     LOGIN_USER
 } from "./types";
+import { Actions } from 'react-native-router-flux';
 
 export const emailChanged = (email) => {
     if(!Validator.isEmail(email)){
@@ -56,6 +57,8 @@ const startLoginUser = (dispatch) => {
 
 const loginUserSuccess = (dispatch, user) => {
     dispatch({type: LOGIN_USER_SUCCESS, payload: user})
+
+    Actions.main();
 }
 
 const loginUserFail = (dispatch) => {

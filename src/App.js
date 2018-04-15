@@ -8,6 +8,7 @@ import ReduxThunk from 'redux-thunk';
 
 import reducers from './reducers';
 import Routers from './Routers';
+import TodoPage from './components/todo/TodoPage';
 
 class App extends Component {
 
@@ -26,7 +27,7 @@ componentDidMount(){
         const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
         return(
             <Provider store = {store} >
-                <Routers/>
+                <TodoPage/>
             </Provider>
         );
     }
