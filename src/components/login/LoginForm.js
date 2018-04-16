@@ -17,7 +17,6 @@ class LoginForm extends Component {
     }
     onPasswordChange(password) {
         this.props.passwordChanged(password);
-        console.log(this.props.passwordChanged(password));
     }
     onPressLogin() {
         const { email , password, errors } = this.props;

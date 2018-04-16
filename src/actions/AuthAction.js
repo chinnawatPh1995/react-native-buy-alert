@@ -1,5 +1,5 @@
-import firebase from 'firebase';
 import Validator from 'validator';
+import {auth} from '../config/firebase';
 
 import {
     EMAIL_CHANGED,
@@ -45,7 +45,7 @@ export const loginUser = ({ email, password }) => {
     return (dispatch) => {
     startLoginUser(dispatch);
 
-      firebase.auth().signInWithEmailAndPassword(email, password)
+    auth.signInWithEmailAndPassword(email, password)
         .then((user) => loginUserSuccess(dispatch,user))
         .catch(() => loginUserFail(dispatch));
     };
@@ -57,7 +57,6 @@ const startLoginUser = (dispatch) => {
 
 const loginUserSuccess = (dispatch, user) => {
     dispatch({type: LOGIN_USER_SUCCESS, payload: user})
-
     Actions.main();
 }
 

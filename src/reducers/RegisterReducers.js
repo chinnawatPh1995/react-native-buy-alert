@@ -4,16 +4,17 @@ import {EMAIL_CHANGED,
     PASSWORD_NOT_MATCH,
     REGISTER_SUSSES,
     REGISTER_FAIL,
-    LOGIN_USER,
+    REGISTER_USER,
 } from '../actions/types';
 
 const INITIAL_STATE = {
     confirmPass: '',
+    user: '',
     reErrros: {
         confirmPass: '',
         auth: '',
     },
-    loading: false
+    loading: null
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -30,7 +31,9 @@ export default (state = INITIAL_STATE, action) => {
             };
         case REGISTER_SUSSES: 
             return {
-                ...state, loading: false,
+                ...state,
+                user: action.payload,
+                loading: false,
                 reErrros: {...state.reErrros, auth: ''}
             };
         case REGISTER_FAIL: 
@@ -38,7 +41,7 @@ export default (state = INITIAL_STATE, action) => {
                 ...state, loading: false,
                 reErrros: {...state.reErrros, auth: 'Register Failed.'}
             };
-        case LOGIN_USER: 
+        case REGISTER_USER: 
             return {
                 ...state, loading: true,
                 reErrros: {...state.reErrros,

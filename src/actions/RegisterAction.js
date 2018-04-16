@@ -1,13 +1,14 @@
 import Validator from 'validator';
-import firebase from 'firebase';
+import {auth} from '../config/firebase';
 
 import {
     CONFIRM_PASS_CHANGED,
     PASSWORD_NOT_MATCH,
     REGISTER_SUSSES,
     REGISTER_FAIL,
-    LOGIN_USER,
+    REGISTER_USER,
 } from './types';
+import { Actions } from 'react-native-router-flux';
 
 export const reConfirmPassChanged = (password,confirmPass) => {
     if(password != confirmPass){
@@ -26,16 +27,17 @@ export const reConfirmPassChanged = (password,confirmPass) => {
 export const registerUser = ({email , password}) => {
     return (dispatch) => {
         startLoginUser(dispatch);
-        firebase.auth().createUserWithEmailAndPassword(email,password)
-            .then(() => registerSusses(dispatch))
+        auth.createUserWithEmailAndPassword(email,password)
+            .then((user) => registerSusses({dispatch,user}))
             .catch(() => registerFail(dispatch))
     };
 };
 const startLoginUser = (dispatch) => {
-    dispatch({type: LOGIN_USER});
+    dispatch({type: REGISTER_USER});
 }
-const registerSusses = (dispatch) => {
-    dispatch({type: REGISTER_SUSSES});
+const registerSusses = ({dispatch,user}) => {
+    dispatch({type: REGISTER_SUSSES, payload: user});
+    Actions.main();
 }
 const registerFail = (dispatch) => {
     dispatch({type: REGISTER_FAIL});

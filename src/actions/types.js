@@ -9,5 +9,6 @@ export const LOGIN_USER = 'login_user';
 // ========== Register ===========
 export const CONFIRM_PASS_CHANGED = 'confirm_pass_changed';
 export const PASSWORD_NOT_MATCH = 'password_not_match';
+export const REGISTER_USER = 'register_user';
 export const REGISTER_FAIL = 'register_fail';
 export const REGISTER_SUSSES = 'register_susses';

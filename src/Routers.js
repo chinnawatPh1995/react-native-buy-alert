@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Login from './components/login/LoginPage';
 import Register from './components/register/RegisterPage';
-
+import LoginCheck from './components/login/LoginCheck';
 
 // Tabbar
 import TodoPage from './components/todo/TodoPage';
@@ -30,11 +30,16 @@ const Routers = () =>{
     return(
         <Router>
             <Stack key='root'>
+                <Scene  key = "loginCheck"
+                        component= {LoginCheck}
+                        hideNavBar
+                        initial
+                />
                 <Scene
                     key ="login"
                     component={Login}
                     hideNavBar= {true}
-                    initial
+                    // initial
                 />
                 <Scene
                     key = "register"
@@ -46,37 +51,39 @@ const Routers = () =>{
                     headerTintColor="#fff"
                     onRight={() => console.log('') }
                 />
-                <Tabs
-                    showLabel={false}
-                    key="main"
-                    tabs={true}
-                    tabBarStyle={styles.tabBar}
-                    
-                    tabBarPosition="bottom"
-                >
-                    <Scene  key="tab1" 
-                            title="Work"
-                            hideNavBar={true} 
-                            component={ TodoPage } 
-                            initial={true} 
-                            iconName="check-circle"
-                            icon={TabIcon}
-                    />
-                    <Scene  key="tab2"
-                            title="Promotion"
-                            hideNavBar={true}
-                            iconName="bullhorn"
-                            component={PromotionPage}
-                            icon={TabIcon}
-                    />
-                    <Scene  key="tab3"
-                            title="Setting"
-                            hideNavBar={true}
-                            iconName="gear"
-                            component={Setting}
-                            icon={TabIcon}
-                    />
-                </Tabs>
+                <Scene type="replace" key="tabbar"  duration={1}>
+                    <Tabs
+                        showLabel={false}
+                        key="main"
+                        tabs={true}
+                        tabBarStyle={styles.tabBar}
+                        
+                        tabBarPosition="bottom"
+                    >
+                        <Scene  key="tab1" 
+                                title="Work"
+                                hideNavBar={true} 
+                                component={ TodoPage } 
+                                initial={true} 
+                                iconName="check-circle"
+                                icon={TabIcon}
+                        />
+                        <Scene  key="tab2"
+                                title="Promotion"
+                                hideNavBar={true}
+                                iconName="bullhorn"
+                                component={PromotionPage}
+                                icon={TabIcon}
+                        />
+                        <Scene  key="tab3"
+                                title="Setting"
+                                hideNavBar={true}
+                                iconName="gear"
+                                component={Setting}
+                                icon={TabIcon}
+                        />
+                    </Tabs>
+                </Scene>
             </Stack>  
         </Router>
     );
