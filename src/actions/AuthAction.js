@@ -1,5 +1,5 @@
 import Validator from 'validator';
-import {auth} from '../config/firebase';
+import firebase from 'react-native-firebase';
 
 import {
     EMAIL_CHANGED,
@@ -45,7 +45,7 @@ export const loginUser = ({ email, password }) => {
     return (dispatch) => {
     startLoginUser(dispatch);
 
-    auth.signInWithEmailAndPassword(email, password)
+    firebase.auth().signInAndRetrieveDataWithEmailAndPassword(email, password)
         .then((user) => loginUserSuccess(dispatch,user))
         .catch(() => loginUserFail(dispatch));
     };

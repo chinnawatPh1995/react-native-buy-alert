@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Text,View} from 'react-native';
 
-import {auth} from '../../config/firebase';
+import firebase from 'react-native-firebase';
 import Logo from './Logo';
 import {Spinner} from '../common'
 import { Actions } from 'react-native-router-flux';
@@ -12,10 +12,10 @@ class LoginCheck extends Component{
         this.state = {
             loggedIn: null
         }
+        this.renderContent = this.renderContent.bind(this);
     }
-    componentDidMount= () => {
-        
-        auth.onAuthStateChanged((user) => {
+   componentDidMount = () => {
+    firebase.auth().onAuthStateChanged((user) => {
             console.log(user);
             if (user) {
             this.setState({ loggedIn: true });
@@ -24,7 +24,7 @@ class LoginCheck extends Component{
             }
         });
     }
-    renderContent() {
+   renderContent() {
         switch (this.state.loggedIn) {
           case true:
             return Actions.main();
