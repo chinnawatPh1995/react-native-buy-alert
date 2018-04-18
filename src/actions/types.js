@@ -12,3 +12,8 @@ export const PASSWORD_NOT_MATCH = 'password_not_match';
 export const REGISTER_USER = 'register_user';
 export const REGISTER_FAIL = 'register_fail';
 export const REGISTER_SUSSES = 'register_susses';
+
+// =========== Todos ===========
+export const TODO_UPDATE = 'todo_update';
+export const TODO_ADD = 'todo_add';
+export const TODO_FETCH_SUSSES = 'todo_fetch_susses';

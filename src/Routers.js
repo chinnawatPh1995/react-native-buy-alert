@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Login from './components/login/LoginPage';
 import Register from './components/register/RegisterPage';
 import LoginCheck from './components/login/LoginCheck';
+import TodoForm from './components/todo/TodoForm';
 
 // Tabbar
 import TodoPage from './components/todo/TodoPage';
@@ -84,6 +85,17 @@ const Routers = () =>{
                         />
                     </Tabs>
                 </Scene>
+                <Scene
+                    key = "todoForm"
+                    component = {TodoForm}
+                    title="สิ่งที่ต้องซื้อ"
+                    hideNavBar={false}
+                    navigationBarStyle={styles.navbar}
+                    titleStyle={styles.titleStyle}
+                    rightTitle=" "
+                    headerTintColor="#fff"
+                    onRight={() => console.log('') }
+                />
             </Stack>  
         </Router>
     );

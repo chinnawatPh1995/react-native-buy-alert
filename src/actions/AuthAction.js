@@ -8,7 +8,8 @@ import {
     LOGIN_USER_FAIL,
     EMAIL_FAIL,
     PASSWORD_FAIL,
-    LOGIN_USER
+    LOGIN_USER,
+    LOGIN_CHECK
 } from "./types";
 import { Actions } from 'react-native-router-flux';
 

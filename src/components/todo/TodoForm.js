@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import { View,Text,
     TextInput, Image,
-    TouchableOpacity,
+    TouchableOpacity,Picker,
     StyleSheet
 } from 'react-native';
 
 import RNFetchBlob from 'react-native-fetch-blob';
+import { connect } from 'react-redux';
 
 import {Styles} from '../common';
 import ImgPicker from '../../api/ImgPicker';
+import {todoUpdate, todoAdd} from '../../actions';
 
 
 class TodoForm extends Component {
@@ -22,7 +24,13 @@ class TodoForm extends Component {
         ImgPicker(source => this.setState({picture: source}));
     }
 
+    onSubmit(){
+        const { work , descriptions, categories} = this.props;
+        this.props.todoAdd({work, descriptions, categories});
+    }
+
     render(){
+        
         let img = this.state.picture === null? null:
             <Image 
                 source={this.state.picture}
@@ -35,14 +43,39 @@ class TodoForm extends Component {
                         placeholder="สินค้าที่คุณต้องการซื้อ"
                         placeholderTextColor= "rgb(123, 123, 124)"
                         autoCorrect = {false}
+                        style = {{fontSize: 16}}
+                        onChangeText = {work => this.props.todoUpdate({prop: 'work', value: work})}
+                        value= {this.props.work}
                     />
+                </View>
+                <View style={{marginTop:15, width: '90%',}}>
+                <Text style={{fontSize: 16}}>หมวดหมูสินค้า</Text>
+                    <Picker
+                        mode="dropdown"
+                        selectedValue={this.props.categories}
+                        onValueChange={categories=> this.props.todoUpdate({prop: 'categories', value: categories})}
+                    >   
+                        <Picker.Item label="เลือก" value=""/>
+                        <Picker.Item label="ชุดเครื่องแต่งกาย" value="ชุดเครื่องแต่งกาย"/>
+                        <Picker.Item label="กีฬา" value="กีฬา"/>
+                        <Picker.Item label="เครื่องประดับ" value="เครื่องประดับ"/>
+                        <Picker.Item label="ไอที" value="ไอที"/>
+                        <Picker.Item label="เครื่องสำอาง" value="เครื่องสำอาง"/>
+                        <Picker.Item label="สำหรับเด็ก" value="สำหรับเด็ก"/>
+                        <Picker.Item label="บ้าน" value="บ้าน"/>
+                        <Picker.Item label="อาหาร" value="อาหาร"/>
+                        <Picker.Item label="ไลฟ์สไตล์" value="ไลฟ์สไตล์"/>
+                    </Picker>
                 </View>
                 <View style={Styles.section}>
                     <TextInput
                         placeholder="รายละเอียด"
                         multiline= {true}
+                        style = {{fontSize: 16}}
                         placeholderTextColor= "rgb(123, 123, 124)"
                         autoCorrect = {false}
+                        onChangeText = {descriptions => this.props.todoUpdate({prop: 'descriptions', value: descriptions})}
+                        value= {this.props.descriptions}
                         underlineColorAndroid="transparent"
                     />
                 </View>
@@ -55,10 +88,10 @@ class TodoForm extends Component {
                 </TouchableOpacity>
                 <TouchableOpacity
                         style = {styles.touch}
-                        onPress={this.getImage.bind(this)}
+                        onPress={this.onSubmit.bind(this)}
                     >
                         <Text style={styles.textStyle}>บันทึก</Text>
-                    </TouchableOpacity>
+                </TouchableOpacity>
             </View>
         );
     }
@@ -83,4 +116,11 @@ const styles = StyleSheet.create({
     },
 });
 
-export default TodoForm;
+const mapStateToProps = (state) => {
+    const {work, descriptions, categories} = state.todoForm;
+    return { work, descriptions, categories };
+}
+
+export default connect(mapStateToProps,{
+    todoUpdate,todoAdd
+})(TodoForm);

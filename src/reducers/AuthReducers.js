@@ -6,18 +6,20 @@ import {
     EMAIL_FAIL,
     PASSWORD_FAIL,
     LOGIN_USER,
+    LOGIN_CHECK,
 } from "../actions/types";
 
 const INITAIL_STATE = {
     email : '',
     password : '',
     user: null,
+    loggedIn: '',
     errors: {
         auth: '',
         email: '',
         password: '',
     },
-    loading: false,
+    loading: null,
 };
 
 export default (state = INITAIL_STATE, action) => {

@@ -5,6 +5,9 @@ import android.app.Application;
 import com.facebook.react.ReactApplication;
 import io.invertase.firebase.RNFirebasePackage;
 import io.invertase.firebase.auth.RNFirebaseAuthPackage;
+import io.invertase.firebase.firestore.RNFirebaseFirestorePackage;
+import io.invertase.firebase.storage.RNFirebaseStoragePackage;
+import io.invertase.firebase.database.RNFirebaseDatabasePackage;
 import com.imagepicker.ImagePickerPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -30,6 +33,9 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
           new RNFirebasePackage(),
           new RNFirebaseAuthPackage(),
+          new RNFirebaseFirestorePackage(),
+          new RNFirebaseDatabasePackage(),
+          new RNFirebaseStoragePackage(),
           new VectorIconsPackage(),
           new ImagePickerPackage(),
           new RNFetchBlobPackage()
