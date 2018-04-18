@@ -1,14 +1,13 @@
 import firebase from 'react-native-firebase';
 
 import {
-    TODO_UPDATE, TODO_ADD, TODO_FETCH_SUSSES,
+    TODO_CHANGED, TODO_ADD, TODO_FETCH_SUSSES, TODO_SAVE_SUSSES,
 } from './types';
 import { Actions } from 'react-native-router-flux';
 
-export const todoUpdate = ({prop,value}) => {
-    console.log(prop,value)
+export const todoChanged = ({prop,value}) => {
     return {
-        type: TODO_UPDATE,
+        type: TODO_CHANGED,
         payload: {prop,value}
     };
 }
@@ -39,4 +38,17 @@ export const todoFetch = () => {
             });
         });
     };
+}
+
+export const todoSaveChanged = ({work, descriptions, categories,uid}) => {
+    const { currentUser } = firebase.auth();
+    const todo = firebase.database().ref(`/todos/${currentUser.uid}/todolist/${uid}`);
+
+    return (dispatch) => {
+        todo.set({work, descriptions, categories})
+        .then(() => {
+            dispatch({type: TODO_SAVE_SUSSES})
+            Actions.main();
+        })
+    }
 }

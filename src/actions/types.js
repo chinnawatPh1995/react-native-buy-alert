@@ -14,6 +14,7 @@ export const REGISTER_FAIL = 'register_fail';
 export const REGISTER_SUSSES = 'register_susses';
 
 // =========== Todos ===========
-export const TODO_UPDATE = 'todo_update';
+export const TODO_CHANGED = 'todo_changed';
 export const TODO_ADD = 'todo_add';
 export const TODO_FETCH_SUSSES = 'todo_fetch_susses';
+export const TODO_SAVE_SUSSES = 'todo_save_susses';

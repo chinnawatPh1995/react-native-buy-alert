@@ -1,13 +1,13 @@
 import React from 'react';
 import {Text, View, TouchableHighlight,
-        StyleSheet
+        StyleSheet,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const BtnCircle = () => {
+const BtnCircle = ({ onPress }) => {
     return(
         <TouchableHighlight
-            style={styles.btnStyle}
+            style={styles.btnStyle} onPress={onPress}
         >
             <View style={{flex:1, justifyContent:'center',alignItems:'center'}}>
                 <Icon name="plus" size={20} color={'#fff'} style={{alignSelf: 'center',}}/>
@@ -15,6 +15,7 @@ const BtnCircle = () => {
         </TouchableHighlight>
     );
 }
+
 const styles = StyleSheet.create({
     btnStyle: {
         right: 0,
@@ -28,6 +29,6 @@ const styles = StyleSheet.create({
         borderColor: 'rgb(252, 65, 32)',
         backgroundColor: 'rgb(252, 65, 32)',
         position: 'absolute',
-    }
+    },
 });
 export {BtnCircle};

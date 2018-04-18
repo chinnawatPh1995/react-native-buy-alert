@@ -3,4 +3,9 @@ var userOneDocumentRef = db.doc('users/user1');
 
 /users/${currentUser.uid}/employees
 
+() => this.onRenderItem(item)
+(item) => this.onRenderItem(item)
 https://medium.com/@taweesoft/chapter-2-read-and-write-to-firebase-real-time-todo-list-with-firebase-react-js-redux-7ff8e4c76893
+
+
+swipeToClose({/*{this.state.swipeToClose ? "true" : "false"}*/})

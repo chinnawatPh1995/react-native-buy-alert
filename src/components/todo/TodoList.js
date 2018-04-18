@@ -1,68 +1,77 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import {Text, View, StyleSheet,
-    FlatList,ListView,
-    TouchableHighlight
+import {
+    Text, View, StyleSheet,Modal,
+    FlatList,ListView,ScrollView,
+    TouchableHighlight,TouchableWithoutFeedback 
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Actions } from 'react-native-router-flux';
 import {connect} from 'react-redux';
 
-import { BtnCircle } from '../common';
+import { Styles,BtnCircle } from '../common';
 import {todoFetch} from '../../actions';
-import ListItem from './ListItem';
+
 
 class TodoList extends Component {
+    componentDidMount() {
+        this.props.todoFetch();
+    }
+
     onButtonTodo() {
         Actions.todoForm();
     }
 
-    componentDidMount() {
-        this.props.todoFetch();
+    onRenderItem = (item) => {
+        Actions.todoEdit({todo : item});
     }
-    renderRow(todo) {
+
+    renderRow(item) {
         return (
-              <Text>
-                {this.props.todo.work}
-              </Text>
+            <TouchableWithoutFeedback onPress={() => this.onRenderItem(item)}
+                onLongPress={() => this.setModalVisible(true)}
+            >
+                <View style={styles.listViewStyle}>
+                    <Icon name='plus' size={20} style={{marginLeft:20}} />
+                    <Text style={styles.textList}>{item.work}</Text>
+                </View>
+            </TouchableWithoutFeedback>
           );
       }
     render(){
-        console.log(this.props.todo);
         return(
-            <View
-                style={{backgroundColor: '#fff',flex: 1}}
-            >
-                <FlatList
-                    data={this.props.todo}
-                    renderItem={({item}) => <Text>{item.work}</Text>}
-                />
-                <TouchableHighlight
-                    style={styles.btnStyle}
+            <View style={Styles.container}>
+                <View style={{flexDirection: 'row'}}>
+                        <FlatList
+                            key= 'listView'
+                            data={this.props.todo}
+                            renderItem={({item}) => this.renderRow(item)}
+                            keyExtractor={(item, index) => item.uid}
+                        />
+                </View>
+                <BtnCircle
                     onPress={this.onButtonTodo.bind(this)}
-                >
-                    <View style={{flex:1, justifyContent:'center',alignItems:'center'}}>
-                        <Icon name="plus" size={20} color={'#fff'} style={{alignSelf: 'center',}}/>
-                    </View>
-                </TouchableHighlight>
+                />
             </View>
         );
     }
 }
 const styles = StyleSheet.create({
-    btnStyle: {
-        right: 0,
-        bottom: 0,
-        marginBottom: 15,
-        marginRight: 15,
-        borderWidth: 1,
-        height: 40,
-        width: 40,
-        borderRadius: 20,
-        borderColor: 'rgb(252, 65, 32)',
-        backgroundColor: 'rgb(252, 65, 32)',
-        position: 'absolute',
+    listViewStyle: {
+        flexDirection: 'row',
+        alignSelf: 'center',
+        width: '95%',
+        marginTop: 10,
+        marginBottom: 10,
+        paddingBottom: 15,
+        borderBottomColor: 'rgba(0, 0,0,.1)',
+        borderBottomWidth: 1,
+    },
+    textList : {
+        fontSize: 16,
+        marginLeft: 30,
+        color: '#000'
     }
 });
 

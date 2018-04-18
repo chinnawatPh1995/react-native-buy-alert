@@ -8,6 +8,7 @@ import Login from './components/login/LoginPage';
 import Register from './components/register/RegisterPage';
 import LoginCheck from './components/login/LoginCheck';
 import TodoForm from './components/todo/TodoForm';
+import TodoEdit from './components/todo/TodoEdit';
 
 // Tabbar
 import TodoPage from './components/todo/TodoPage';
@@ -96,6 +97,17 @@ const Routers = () =>{
                     headerTintColor="#fff"
                     onRight={() => console.log('') }
                 />
+                <Scene
+                    key = "todoEdit"
+                    component = {TodoEdit}
+                    title="แก้ไข"
+                    hideNavBar={false}
+                    navigationBarStyle={styles.navbar}
+                    titleStyle={styles.titleStyle}
+                    rightTitle=" "
+                    headerTintColor="#fff"
+                    onRight={() => console.log('') }
+                />
             </Stack>  
         </Router>
     );
@@ -113,7 +125,8 @@ const styles = StyleSheet.create({
     },
     tabBar: {
         backgroundColor: 'rgb(255, 255, 255)',
-        borderTopWidth: 0,
+        borderTopWidth: 0.2,
+        borderTopColor: 'rgba(0,0,0,.1)',
     },
 });
 export default Routers;

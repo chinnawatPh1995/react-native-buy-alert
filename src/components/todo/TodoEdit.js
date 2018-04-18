@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { View,Text,
     TextInput, Image,
@@ -10,15 +11,20 @@ import { connect } from 'react-redux';
 
 import {Styles} from '../common';
 import ImgPicker from '../../api/ImgPicker';
-import {todoChanged, todoAdd} from '../../actions';
+import {todoSaveChanged, todoChanged} from '../../actions';
 
 
-class TodoForm extends Component {
+class TodoEdit extends Component {
     constructor(props) {
         super(props);
         this.state = {
             picture: null
         }
+    }
+    componentDidMount() {
+        _.each(this.props.todo, (value, prop) => {
+           this.props.todoChanged({ prop, value });
+        });
     }    
     getImage(){
         ImgPicker(source => this.setState({picture: source}));
@@ -26,11 +32,11 @@ class TodoForm extends Component {
 
     onSubmit(){
         const { work , descriptions, categories} = this.props;
-        this.props.todoAdd({work, descriptions, categories});
+        this.props.todoSaveChanged({work, descriptions, categories, uid: this.props.todo.uid});
     }
 
     render(){
-        
+        // console.log(this.props.todo)
         let img = this.state.picture === null? null:
             <Image 
                 source={this.state.picture}
@@ -90,7 +96,7 @@ class TodoForm extends Component {
                         style = {styles.touch}
                         onPress={this.onSubmit.bind(this)}
                     >
-                        <Text style={styles.textStyle}>บันทึก</Text>
+                        <Text style={styles.textStyle}>แก้ไข</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -122,5 +128,5 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps,{
-    todoChanged,todoAdd
-})(TodoForm);
+    todoChanged,todoSaveChanged
+})(TodoEdit);
