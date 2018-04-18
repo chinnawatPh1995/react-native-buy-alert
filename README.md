@@ -1,7 +1,7 @@
 # knockknock
 
 - react-naitve
-- firebase
+- react-native-firebase
 - validator
 - react-native-router-flux
 - redux
