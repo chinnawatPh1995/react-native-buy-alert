@@ -1,7 +1,8 @@
 import firebase from 'react-native-firebase';
 
 import {
-    TODO_CHANGED, TODO_ADD, TODO_FETCH_SUSSES, TODO_SAVE_SUSSES,
+    TODO_CHANGED, TODO_ADD, TODO_FETCH_SUSSES,
+    TODO_SAVE_SUSSES, TODO_DELECTED
 } from './types';
 import { Actions } from 'react-native-router-flux';
 
@@ -11,13 +12,13 @@ export const todoChanged = ({prop,value}) => {
         payload: {prop,value}
     };
 }
-export const todoAdd = ({ work , descriptions, categories }) => {
+export const todoAdd = ({ work , descriptions, categories, img }) => {
     const { currentUser } = firebase.auth();
     const db = firebase.database();
     const todos = db.ref(`/todos/${currentUser.uid}/todolist`);
 
     return(dispatch) => {
-        todos.push({work, descriptions, categories})
+        todos.push({work, descriptions, categories, img})
         .then(() => {
             dispatch({type: TODO_ADD});
             Actions.main();
@@ -50,5 +51,18 @@ export const todoSaveChanged = ({work, descriptions, categories,uid}) => {
             dispatch({type: TODO_SAVE_SUSSES})
             Actions.main();
         })
+    }
+}
+
+export const todoDelected = ({work, descriptions, categories,uid}) => {
+    const { currentUser } = firebase.auth();
+    const todo = firebase.database().ref(`/todos/${currentUser.uid}/todolist/${uid}`);
+
+    return(dispatch) => {
+        todo.remove({work, descriptions, categories})
+        .then(() => {
+            dispatch({type: TODO_DELECTED})
+            Actions.main();
+        });
     }
 }

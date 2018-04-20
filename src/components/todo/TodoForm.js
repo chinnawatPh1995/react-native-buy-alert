@@ -5,12 +5,24 @@ import { View,Text,
     StyleSheet
 } from 'react-native';
 
-import RNFetchBlob from 'react-native-fetch-blob';
+import firebase from 'react-native-firebase';
+import ImagePicker from 'react-native-image-picker';
 import { connect } from 'react-redux';
 
 import {Styles} from '../common';
 import ImgPicker from '../../api/ImgPicker';
 import {todoChanged, todoAdd} from '../../actions';
+
+let options = {
+    title: 'เลือกรูปภาพ',
+    // customButtons: [
+    //   {name: 'fb', title: 'Choose Photo from Facebook'},
+    // ],
+    storageOptions: {
+      skipBackup: true,
+      path: 'images'
+    }
+};
 
 
 class TodoForm extends Component {
@@ -19,21 +31,42 @@ class TodoForm extends Component {
         this.state = {
             picture: null
         }
-    }    
+    } 
+    uploadImg({uri,fileName}){
+        const imgName = fileName;
+        const image = uri;     
+        const sessionId = new Date().getTime()
+        const res = sessionId+imgName;
+        const imageRef = firebase.storage().ref('images').child(res);
+        let mime = 'image/jpg';
+        imageRef.put(image, { contentType: mime })
+            .then(() => {
+              return imageRef.getDownloadURL()
+            })
+            .then((url) => {
+                this.props.todoChanged({prop : 'image', value: url});
+            })
+            .catch((error) => {
+              console.log(error);
+          })
+    }   
     getImage(){
-        ImgPicker(source => this.setState({picture: source}));
+        ImagePicker.showImagePicker(options, (response) => {
+                const { fileName , uri } = response;
+                this.uploadImg({uri,fileName});
+        });
     }
 
     onSubmit(){
         const { work , descriptions, categories} = this.props;
-        this.props.todoAdd({work, descriptions, categories});
+        const  img  = this.props.image;
+        this.props.todoAdd({work, descriptions, categories, img});
     }
 
     render(){
-        
-        let img = this.state.picture === null? null:
+        let img = this.props.image === null? null:
             <Image 
-                source={this.state.picture}
+                source={{uri:this.props.image}}
                 style={{height: 200,width:200}}
             />
         return(
@@ -117,8 +150,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    const {work, descriptions, categories} = state.todoForm;
-    return { work, descriptions, categories };
+    const {work, descriptions, categories, image} = state.todoForm;
+    return { work, descriptions, categories, image };
 }
 
 export default connect(mapStateToProps,{

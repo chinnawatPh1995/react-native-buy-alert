@@ -149,7 +149,6 @@ dependencies {
     compile "com.facebook.react:react-native:+"  // From node_modules
     compile project(':react-native-vector-icons')
     compile project(':react-native-image-picker')
-    compile project(':react-native-fetch-blob')
 
     // Firebase dependencies
     compile "com.google.android.gms:play-services-base:11.8.0"

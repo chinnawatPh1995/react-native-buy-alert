@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import {
-    Text, View, StyleSheet,Modal,
+    Text, View, StyleSheet,Alert,
     FlatList,ListView,ScrollView,
     TouchableHighlight,TouchableWithoutFeedback 
 } from 'react-native';
@@ -30,7 +30,7 @@ class TodoList extends Component {
     renderRow(item) {
         return (
             <TouchableWithoutFeedback onPress={() => this.onRenderItem(item)}
-                onLongPress={() => this.setModalVisible(true)}
+                onLongPress={this.onPressLongAlert}
             >
                 <View style={styles.listViewStyle}>
                     <Icon name='plus' size={20} style={{marginLeft:20}} />

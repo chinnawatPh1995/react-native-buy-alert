@@ -10,6 +10,12 @@ const Styles = StyleSheet.create({
     section: {
         width: '90%',
         marginBottom: 5,
+    },
+    sectionRow: {
+        width: '100%',
+        flexDirection: 'row',
+        borderTopWidth: 0.5,
+        borderColor: 'rgba(0, 0,0,.1)',
     }
 });
 

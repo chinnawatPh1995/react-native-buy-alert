@@ -1,17 +1,16 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { View,Text,
-    TextInput, Image,
+    TextInput, Image,Alert,
     TouchableOpacity,Picker,
     StyleSheet
 } from 'react-native';
 
-import RNFetchBlob from 'react-native-fetch-blob';
 import { connect } from 'react-redux';
 
 import {Styles} from '../common';
 import ImgPicker from '../../api/ImgPicker';
-import {todoSaveChanged, todoChanged} from '../../actions';
+import {todoSaveChanged, todoChanged, todoDelected} from '../../actions';
 
 
 class TodoEdit extends Component {
@@ -33,6 +32,11 @@ class TodoEdit extends Component {
     onSubmit(){
         const { work , descriptions, categories} = this.props;
         this.props.todoSaveChanged({work, descriptions, categories, uid: this.props.todo.uid});
+    }
+
+    onPressDelect() {
+        const { work , descriptions, categories} = this.props;
+        this.props.todoDelected({work, descriptions, categories, uid: this.props.todo.uid});
     }
 
     render(){
@@ -98,6 +102,12 @@ class TodoEdit extends Component {
                     >
                         <Text style={styles.textStyle}>แก้ไข</Text>
                 </TouchableOpacity>
+                <TouchableOpacity
+                        style = {styles.touch}
+                        onPress={this.onPressDelect.bind(this)}
+                    >
+                        <Text style={styles.textStyle}>ลบ</Text>
+                </TouchableOpacity>
             </View>
         );
     }
@@ -128,5 +138,5 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps,{
-    todoChanged,todoSaveChanged
+    todoChanged,todoSaveChanged, todoDelected
 })(TodoEdit);

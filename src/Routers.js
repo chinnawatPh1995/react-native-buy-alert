@@ -26,7 +26,7 @@ class TabIcon extends Component {
             </View>
         );
     }
-  }
+}
 
 const Routers = () =>{
     return(
@@ -104,7 +104,7 @@ const Routers = () =>{
                     hideNavBar={false}
                     navigationBarStyle={styles.navbar}
                     titleStyle={styles.titleStyle}
-                    rightTitle=" "
+                    rightTitle={<Icon></Icon>}
                     headerTintColor="#fff"
                     onRight={() => console.log('') }
                 />

@@ -17,4 +17,11 @@ export const REGISTER_SUSSES = 'register_susses';
 export const TODO_CHANGED = 'todo_changed';
 export const TODO_ADD = 'todo_add';
 export const TODO_FETCH_SUSSES = 'todo_fetch_susses';
+export const TODO_DELECTED = 'todo_delected';
 export const TODO_SAVE_SUSSES = 'todo_save_susses';
+
+// ========== Promotion ==========
+
+export const PROMO_CHANGED = 'promo_changed';
+export const PROMO_ADD = 'promo_add';
+export const PROMO_FETCH_SUSSES = 'promo_fetch_susses';
