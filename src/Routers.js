@@ -27,11 +27,10 @@ class TabIcon extends Component {
         );
     }
 }
-
 const Routers = () =>{
     return(
         <Router>
-            <Stack key='root'>
+            <Stack key='root' >
                 <Scene  key = "loginCheck"
                         component= {LoginCheck}
                         hideNavBar
@@ -50,6 +49,7 @@ const Routers = () =>{
                     navigationBarStyle={styles.navbar}
                     titleStyle={styles.titleStyle}
                     rightTitle=" "
+                    hideNavBar
                     headerTintColor="#fff"
                     onRight={() => console.log('') }
                 />
@@ -64,7 +64,7 @@ const Routers = () =>{
                     >
                         <Scene  key="tab1" 
                                 title="Work"
-                                hideNavBar={true} 
+                                hideNavBar
                                 component={ TodoPage } 
                                 initial={true} 
                                 iconName="check-circle"
@@ -72,14 +72,14 @@ const Routers = () =>{
                         />
                         <Scene  key="tab2"
                                 title="Promotion"
-                                hideNavBar={true}
+                                hideNavBar
                                 iconName="bullhorn"
                                 component={PromotionPage}
                                 icon={TabIcon}
                         />
                         <Scene  key="tab3"
                                 title="Setting"
-                                hideNavBar={true}
+                                hideNavBar
                                 iconName="gear"
                                 component={Setting}
                                 icon={TabIcon}
@@ -89,19 +89,19 @@ const Routers = () =>{
                 <Scene
                     key = "todoForm"
                     component = {TodoForm}
-                    title="สิ่งที่ต้องซื้อ"
-                    hideNavBar={false}
+                    hideNavBar
                     navigationBarStyle={styles.navbar}
                     titleStyle={styles.titleStyle}
                     rightTitle=" "
                     headerTintColor="#fff"
-                    onRight={() => console.log('') }
+                    rightTitle={<Icon name="check" size={10}/>}
+                    onRight={() => console.log("5555")}
                 />
                 <Scene
                     key = "todoEdit"
                     component = {TodoEdit}
                     title="แก้ไข"
-                    hideNavBar={false}
+                    hideNavBar
                     navigationBarStyle={styles.navbar}
                     titleStyle={styles.titleStyle}
                     rightTitle={<Icon></Icon>}
@@ -129,4 +129,5 @@ const styles = StyleSheet.create({
         borderTopColor: 'rgba(0,0,0,.1)',
     },
 });
+
 export default Routers;

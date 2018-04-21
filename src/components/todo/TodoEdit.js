@@ -41,9 +41,9 @@ class TodoEdit extends Component {
 
     render(){
         // console.log(this.props.todo)
-        let img = this.state.picture === null? null:
+        let img = this.props.image === null? null:
             <Image 
-                source={this.state.picture}
+                source={{uri:this.props.image}}
                 style={{height: 200,width:200}}
             />
         return(
@@ -133,8 +133,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    const {work, descriptions, categories} = state.todoForm;
-    return { work, descriptions, categories };
+    const {work, descriptions, categories, image} = state.todoForm;
+    return { work, descriptions, categories, image};
 }
 
 export default connect(mapStateToProps,{

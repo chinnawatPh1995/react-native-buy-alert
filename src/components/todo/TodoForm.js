@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View,Text,
+import { View,Text,ScrollView,
     TextInput, Image,
     TouchableOpacity,Picker,
     StyleSheet
@@ -8,10 +8,13 @@ import { View,Text,
 import firebase from 'react-native-firebase';
 import ImagePicker from 'react-native-image-picker';
 import { connect } from 'react-redux';
+import {Header, Button} from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 
 import {Styles} from '../common';
-import ImgPicker from '../../api/ImgPicker';
 import {todoChanged, todoAdd} from '../../actions';
+import {Spinner} from '../common';
 
 let options = {
     title: 'เลือกรูปภาพ',
@@ -29,7 +32,7 @@ class TodoForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            picture: null
+            loading: null
         }
     } 
     uploadImg({uri,fileName}){
@@ -45,6 +48,7 @@ class TodoForm extends Component {
             })
             .then((url) => {
                 this.props.todoChanged({prop : 'image', value: url});
+                this.setState({loading: false});
             })
             .catch((error) => {
               console.log(error);
@@ -52,9 +56,25 @@ class TodoForm extends Component {
     }   
     getImage(){
         ImagePicker.showImagePicker(options, (response) => {
+                this.loadingSP(this.setState({loading: true}));              
                 const { fileName , uri } = response;
                 this.uploadImg({uri,fileName});
         });
+    }
+
+    loadingSP() {
+        if(this.state.loading){
+            return(
+                <Spinner size="large"/>
+            );
+        }else{
+            return(
+                <Image 
+                    source={{uri:this.props.image}}
+                    style={{height: 250,width:250}}
+                />
+            )
+        }
     }
 
     onSubmit(){
@@ -64,13 +84,17 @@ class TodoForm extends Component {
     }
 
     render(){
-        let img = this.props.image === null? null:
-            <Image 
-                source={{uri:this.props.image}}
-                style={{height: 200,width:200}}
-            />
         return(
-            <View style={Styles.container}>
+            <ScrollView contentContainerStyle={{flex: 1}}>
+                <Header
+                    outerContainerStyles={{ backgroundColor: '#fff' }}
+                    leftComponent={
+                        <Icon name='arrow-left' size={20} color={'rgb(252, 65, 32)'}/>
+                    }
+                    centerComponent={{ text: 'เพิ่มการแจ้งเตือน', style: { fontSize: 18,color: 'rgb(252, 65, 32)' } }}
+                    rightComponent={<Icon name='sign-in' size={30} color={'rgb(252, 65, 32)'} />}
+                />
+                <View style={Styles.container}>
                 <View style={[Styles.section,{marginTop:20}]}>
                     <TextInput
                         placeholder="สินค้าที่คุณต้องการซื้อ"
@@ -112,7 +136,9 @@ class TodoForm extends Component {
                         underlineColorAndroid="transparent"
                     />
                 </View>
-                {img}
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                    {this.loadingSP()}
+                </View>
                 <TouchableOpacity
                     style = {styles.touch}
                     onPress={this.getImage.bind(this)}
@@ -125,7 +151,8 @@ class TodoForm extends Component {
                     >
                         <Text style={styles.textStyle}>บันทึก</Text>
                 </TouchableOpacity>
-            </View>
+                </View>
+            </ScrollView>
         );
     }
 }

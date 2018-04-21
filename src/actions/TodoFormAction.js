@@ -66,3 +66,7 @@ export const todoDelected = ({work, descriptions, categories,uid}) => {
         });
     }
 }
+
+export const test = (test) => {
+    console.log(" Test" : test);
+}

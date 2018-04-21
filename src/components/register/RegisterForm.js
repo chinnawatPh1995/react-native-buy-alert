@@ -6,13 +6,17 @@ import { Text, View,
 } from 'react-native';
 
 import { connect } from 'react-redux';
+import {Header, Button} from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { Spinner } from '../common';
+import Logo from '../login/Logo';
 
 import {
     emailChanged, passwordChanged,
     reConfirmPassChanged, registerUser
 } from '../../actions';
+import { Actions } from 'react-native-router-flux';
 
 class RegisterForm extends Component {
     onEmailChange(email) {
@@ -49,9 +53,21 @@ class RegisterForm extends Component {
         }
     }
     render(){
+        const test = {
+        }
         const {email, password} = this.props.errors;
         return(
+        <View style={{flex: 1}}>
+            <Header
+                outerContainerStyles={{ backgroundColor: '#fff' }}
+                leftComponent={
+                    <Icon name='arrow-left' size={20} color={'rgb(252, 65, 32)'} onPress={() => Actions.login()}/>
+                }
+                centerComponent={{ text: 'สมัครสมาชิก', style: { fontSize: 18,color: 'rgb(252, 65, 32)' } }}
+                rightComponent={<Icon name='sign-in' size={30} color={'rgb(252, 65, 32)'} onPress={() => this.onPressRegis()}/>}
+            />
            <View style={styles.container}>
+                <Logo />
                 <View style={styles.cardSection}>
                     <Text style={styles.text}>Email</Text>
                     <View style={styles.inputStyle}>
@@ -91,26 +107,9 @@ class RegisterForm extends Component {
                     </View>
                     <Text style={{marginLeft:5,color: '#f73b3b'}}>{this.props.reErrros.confirmPass}</Text>
                 </View>
-                <View style={{flexDirection: 'row'}}>
-                    <TouchableOpacity
-                        style={styles.touch}
-                        onPress = {this.onPressRegis.bind(this)}             
-                    >
-                    <Text style={styles.textStyle}>
-                        ตกลง
-                    </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={styles.touch}
-                        onPress = {() => this.onPressCancel()}
-                    >
-                    <Text style={styles.textStyle}>
-                        ยกเลิก
-                    </Text>
-                    </TouchableOpacity>
-                </View>
                 {this.renderSpinner()}
            </View>
+        </View>
         );
     }
 }
@@ -123,7 +122,7 @@ const styles = StyleSheet.create({
     },
     cardSection: {
         width: '80%',
-        marginBottom: 20,
+        marginBottom: 10,
     },
     text: {
         fontWeight: '600',
