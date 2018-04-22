@@ -1,5 +1,5 @@
 import {
-    TODO_CHANGED, TODO_ADD, TODO_SAVE_SUSSES, TODO_DELECTED
+    TODO_CHANGED, TODO_ADD, TODO_SAVE_SUSSES, TODO_DELECTED, TODO_CLEAR_STATE
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -19,6 +19,8 @@ export default (state = INITIAL_STATE, action) => {
         case TODO_SAVE_SUSSES:
             return INITIAL_STATE;
         case TODO_DELECTED: 
+            return INITIAL_STATE;
+        case TODO_CLEAR_STATE:
             return INITIAL_STATE;
         default:
             return state;

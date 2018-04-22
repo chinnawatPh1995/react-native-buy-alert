@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { View,Text,
     TextInput, Image,
-    TouchableOpacity,Picker,
+    TouchableOpacity,Picker,TouchableHighlight,
     StyleSheet,ScrollView
 } from 'react-native';
 
@@ -15,7 +15,7 @@ import { Actions } from 'react-native-router-flux';
 import ActionButton from 'react-native-action-button';
 
 import {Styles} from '../common';
-import {todoSaveChanged, todoChanged, todoDelected} from '../../actions';
+import {todoSaveChanged, todoChanged, todoDelected,todoClearState} from '../../actions';
 import {Spinner} from '../common';
 
 let options = {
@@ -33,12 +33,12 @@ class TodoEdit extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            loading: null
+            loading: null,
+            fileName: '',
         }
     } 
     componentDidMount() {
         _.each(this.props.todo, (value, prop) => {
-            console.log(value)
            this.props.todoChanged({ prop, value });
         });
     }    
@@ -122,7 +122,7 @@ class TodoEdit extends Component {
                 <Header
                     outerContainerStyles={{ backgroundColor: '#fff' }}
                     leftComponent={
-                        <Icon name='arrow-left' size={20} color={'rgb(252, 65, 32)'} onPress={() => Actions.main()}/>
+                        <Icon name='arrow-left' size={20} color={'rgb(252, 65, 32)'} onPress={() => this.props.todoClearState()}/>
                     }
                     centerComponent={{ text: 'เพิ่มการแจ้งเตือน', style: { fontSize: 18,color: 'rgb(252, 65, 32)' } }}
                     rightComponent={<Icon name='check' size={25} color={'rgb(252, 65, 32)'} onPress={this.onSubmit.bind(this)} />}
@@ -170,12 +170,10 @@ class TodoEdit extends Component {
                     />
                 </View>
                 <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                    <Image 
-                        source={{uri:this.props.image}}
-                        style={{height: 230,width:230}}
-                    />
+                    {this.loadingSP()}
                 </View>                
                 </View>
+                
                 <ActionButton
                     buttonColor="rgba(0,0,0,0)"
                     size={30}
@@ -186,7 +184,7 @@ class TodoEdit extends Component {
                 >
                     <ActionButton.Item 
                         buttonColor='rgb(255, 96, 68)' title="Camera" 
-                        onPress={() => this.onPressCamera.bind(this)}
+                        onPress={this.onPressCamera.bind(this)}
                         shadowStyle ={{elevation: 0}}
                         hideLabelShadow
                     >
@@ -201,6 +199,15 @@ class TodoEdit extends Component {
                         <Icon name="image" color={'#fff'}/>
                     </ActionButton.Item>
                 </ActionButton>
+
+                <ActionButton
+                    buttonColor="transparent"
+                    position="center"
+                    renderIcon={() => <Icon name="trash" size={30} color={'rgb(252, 65, 32)'}/>}
+                    offsetY={7}
+                    onPress={this.onPressDelect.bind(this)}
+                />
+
                 <ActionButton
                     buttonColor="rgba(0,0,0,0)"
                     size={30}
@@ -217,6 +224,7 @@ class TodoEdit extends Component {
                         <Icon name="share" color={'#fff'}/>
                     </ActionButton.Item>
                 </ActionButton>
+
             </ScrollView>
         );
     }
@@ -247,5 +255,5 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps,{
-    todoChanged,todoSaveChanged, todoDelected
+    todoChanged,todoSaveChanged, todoDelected,todoClearState
 })(TodoEdit);

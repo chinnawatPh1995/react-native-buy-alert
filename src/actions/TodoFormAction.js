@@ -2,7 +2,7 @@ import firebase from 'react-native-firebase';
 
 import {
     TODO_CHANGED, TODO_ADD, TODO_FETCH_SUSSES,
-    TODO_SAVE_SUSSES, TODO_DELECTED
+    TODO_SAVE_SUSSES, TODO_DELECTED, TODO_CLEAR_STATE
 } from './types';
 import { Actions } from 'react-native-router-flux';
 
@@ -54,19 +54,24 @@ export const todoSaveChanged = ({work, descriptions, categories,uid}) => {
     }
 }
 
-export const todoDelected = ({work, descriptions, categories,uid}) => {
+export const todoDelected = ({work, descriptions, categories,image,uid}) => {
     const { currentUser } = firebase.auth();
     const todo = firebase.database().ref(`/todos/${currentUser.uid}/todolist/${uid}`);
-
+    const desertRef = firebase.storage().refFromURL(image)
     return(dispatch) => {
-        todo.remove({work, descriptions, categories})
+        todo.remove({work, descriptions, categories,image })
         .then(() => {
-            dispatch({type: TODO_DELECTED})
-            Actions.main();
+            desertRef.delete().then(() => {
+                dispatch({type:TODO_DELECTED});
+                Actions.main();
+            })
         });
     }
 }
 
-export const test = (test) => {
-    console.log(" Test" : test);
+export const todoClearState = () =>{
+    Actions.main();
+    return {
+        type: TODO_CLEAR_STATE,
+    }
 }

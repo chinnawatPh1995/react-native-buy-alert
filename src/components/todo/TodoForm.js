@@ -33,7 +33,7 @@ class TodoForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            loading: null
+            loading: null,
         }
     } 
     uploadImg({uri,fileName}){
@@ -164,7 +164,7 @@ class TodoForm extends Component {
                 >
                     <ActionButton.Item 
                         buttonColor='rgb(255, 96, 68)' title="Camera" 
-                        onPress={() => this.onPressCamera.bind(this)}
+                        onPress={this.onPressCamera.bind(this)}
                         shadowStyle ={{elevation: 0}}
                         hideLabelShadow
                     >
