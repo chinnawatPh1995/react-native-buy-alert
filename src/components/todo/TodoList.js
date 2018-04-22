@@ -9,6 +9,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Actions } from 'react-native-router-flux';
 import {connect} from 'react-redux';
+import ActionButton from 'react-native-action-button';
 
 import { Styles,BtnCircle } from '../common';
 import {todoFetch} from '../../actions';
@@ -17,10 +18,6 @@ import {todoFetch} from '../../actions';
 class TodoList extends Component {
     componentDidMount() {
         this.props.todoFetch();
-    }
-
-    onButtonTodo() {
-        Actions.todoForm();
     }
 
     onRenderItem = (item) => {
@@ -50,9 +47,14 @@ class TodoList extends Component {
                             keyExtractor={(item, index) => item.uid}
                         />
                 </View>
-                <BtnCircle
-                    onPress={this.onButtonTodo.bind(this)}
+                <ActionButton
+                    buttonColor="rgb(252, 65, 32)"
+                    size={40}
+                    onPress={() => Actions.todoForm()}
+                    offsetX={20}
+                    offsetY={20}
                 />
+                
             </View>
         );
     }

@@ -7,6 +7,7 @@
 - redux
 - react-redux
 - react-thunk
+- react-native-elements
+- react-native-action-button
 - react-native-vector-icons
-- react-native-fetch-blob
 - react-native-image-picker

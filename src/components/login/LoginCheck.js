@@ -12,7 +12,6 @@ class LoginCheck extends Component{
         this.state = {
             loggedIn: null
         }
-        this.renderContent = this.renderContent.bind(this);
     }
    UNSAFE_componentWillMount = () => {
     firebase.auth().onAuthStateChanged((user) => {

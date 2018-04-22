@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { View,Text,ScrollView,
+import { View,Text,
     TextInput, Image,
     TouchableOpacity,Picker,
-    StyleSheet
+    StyleSheet,ScrollView
 } from 'react-native';
 
 import firebase from 'react-native-firebase';
@@ -10,10 +10,11 @@ import ImagePicker from 'react-native-image-picker';
 import { connect } from 'react-redux';
 import {Header, Button} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import { Actions } from 'react-native-router-flux';
+import ActionButton from 'react-native-action-button';
 
 import {Styles} from '../common';
-import {todoChanged, todoAdd} from '../../actions';
+import {todoChanged, todoAdd, todoUpload} from '../../actions';
 import {Spinner} from '../common';
 
 let options = {
@@ -53,12 +54,27 @@ class TodoForm extends Component {
             .catch((error) => {
               console.log(error);
           })
+    }
+    onPressCamera(){
+        ImagePicker.launchCamera(options, (response) => {
+                if (response.didCancel) {
+                    console.log('User cancelled image picker');
+                }else {
+                    this.loadingSP(this.setState({loading: true}));     
+                    const { fileName , uri } = response;
+                    this.uploadImg({uri,fileName})
+                }
+        });
     }   
-    getImage(){
-        ImagePicker.showImagePicker(options, (response) => {
-                this.loadingSP(this.setState({loading: true}));              
-                const { fileName , uri } = response;
-                this.uploadImg({uri,fileName});
+    onPressLibrary(){
+        ImagePicker.launchImageLibrary(options, (response) => {
+                if (response.didCancel) {
+                    console.log('User cancelled image picker');
+                }else {
+                    this.loadingSP(this.setState({loading: true}));     
+                    const { fileName , uri } = response;
+                    this.uploadImg({uri,fileName})
+                }
         });
     }
 
@@ -71,16 +87,14 @@ class TodoForm extends Component {
             return(
                 <Image 
                     source={{uri:this.props.image}}
-                    style={{height: 250,width:250}}
+                    style={{height: 230,width:230}}
                 />
             )
         }
     }
-
     onSubmit(){
-        const { work , descriptions, categories} = this.props;
-        const  img  = this.props.image;
-        this.props.todoAdd({work, descriptions, categories, img});
+        const { work , descriptions, categories, image} = this.props;
+        this.props.todoAdd({work, descriptions, categories, image});
     }
 
     render(){
@@ -89,10 +103,10 @@ class TodoForm extends Component {
                 <Header
                     outerContainerStyles={{ backgroundColor: '#fff' }}
                     leftComponent={
-                        <Icon name='arrow-left' size={20} color={'rgb(252, 65, 32)'}/>
+                        <Icon name='arrow-left' size={20} color={'rgb(252, 65, 32)'} onPress={() => Actions.main()}/>
                     }
                     centerComponent={{ text: 'เพิ่มการแจ้งเตือน', style: { fontSize: 18,color: 'rgb(252, 65, 32)' } }}
-                    rightComponent={<Icon name='sign-in' size={30} color={'rgb(252, 65, 32)'} />}
+                    rightComponent={<Icon name='check' size={25} color={'rgb(252, 65, 32)'} onPress={this.onSubmit.bind(this)} />}
                 />
                 <View style={Styles.container}>
                 <View style={[Styles.section,{marginTop:20}]}>
@@ -138,20 +152,49 @@ class TodoForm extends Component {
                 </View>
                 <View style={{justifyContent: 'center', alignItems: 'center'}}>
                     {this.loadingSP()}
+                </View>                
                 </View>
-                <TouchableOpacity
-                    style = {styles.touch}
-                    onPress={this.getImage.bind(this)}
+                <ActionButton
+                    buttonColor="rgba(0,0,0,0)"
+                    size={30}
+                    position="left"
+                    offsetX={10}
+                    offsetY={10}
+                    renderIcon={() => <Icon name="plus-square" size={25} color={'rgb(252, 65, 32)'} />}
                 >
-                    <Text style={styles.textStyle}>แทรกรูปภาพ</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                        style = {styles.touch}
-                        onPress={this.onSubmit.bind(this)}
+                    <ActionButton.Item 
+                        buttonColor='rgb(255, 96, 68)' title="Camera" 
+                        onPress={() => this.onPressCamera.bind(this)}
+                        shadowStyle ={{elevation: 0}}
+                        hideLabelShadow
                     >
-                        <Text style={styles.textStyle}>บันทึก</Text>
-                </TouchableOpacity>
-                </View>
+                        <Icon name="camera" color={'#fff'}/>
+                    </ActionButton.Item>
+                    <ActionButton.Item 
+                        buttonColor='rgb(255, 96, 68)' title="Gallery" 
+                        shadowStyle ={{elevation: 0}}
+                        hideLabelShadow
+                        onPress={this.onPressLibrary.bind(this)}
+                    >
+                        <Icon name="image" color={'#fff'}/>
+                    </ActionButton.Item>
+                </ActionButton>
+                <ActionButton
+                    buttonColor="rgba(0,0,0,0)"
+                    size={30}
+                    offsetX={10}
+                    offsetY={10}
+                    renderIcon={() => <Icon name="chevron-circle-up" size={28}  color={'rgb(252, 65, 32)'}/>}
+                >
+                    <ActionButton.Item 
+                        buttonColor='rgb(255, 96, 68)' title="Share" 
+                        onPress={() => console.log("notes tapped!")}
+                        shadowStyle ={{elevation: 0}}
+                        hideLabelShadow
+                    >
+                        <Icon name="share" color={'#fff'}/>
+                    </ActionButton.Item>
+                </ActionButton>
             </ScrollView>
         );
     }
@@ -178,9 +221,11 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     const {work, descriptions, categories, image} = state.todoForm;
-    return { work, descriptions, categories, image };
+    return { work, descriptions, categories, image};
 }
-
+const mapDispatchToProps = () => {
+    return {todoChanged, todoAdd, todoUpload};
+}
 export default connect(mapStateToProps,{
-    todoChanged,todoAdd
+    todoChanged, todoAdd, todoUpload
 })(TodoForm);

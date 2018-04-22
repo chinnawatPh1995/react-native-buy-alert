@@ -19,6 +19,7 @@ export const TODO_ADD = 'todo_add';
 export const TODO_FETCH_SUSSES = 'todo_fetch_susses';
 export const TODO_DELECTED = 'todo_delected';
 export const TODO_SAVE_SUSSES = 'todo_save_susses';
+export const TODO_UPLOAD = 'todo_upload'
 
 // ========== Promotion ==========
 

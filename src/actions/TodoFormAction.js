@@ -12,13 +12,13 @@ export const todoChanged = ({prop,value}) => {
         payload: {prop,value}
     };
 }
-export const todoAdd = ({ work , descriptions, categories, img }) => {
+export const todoAdd = ({ work , descriptions, categories, image }) => {
     const { currentUser } = firebase.auth();
     const db = firebase.database();
     const todos = db.ref(`/todos/${currentUser.uid}/todolist`);
 
     return(dispatch) => {
-        todos.push({work, descriptions, categories, img})
+        todos.push({work, descriptions, categories, image})
         .then(() => {
             dispatch({type: TODO_ADD});
             Actions.main();
