@@ -5,15 +5,18 @@ import { View,Text,
     StyleSheet,ScrollView
 } from 'react-native';
 
+import firebase from 'react-native-firebase';
+import _ from 'lodash';
 import ImagePicker from 'react-native-image-picker';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Header } from 'react-native-elements';
 import {Actions} from 'react-native-router-flux';
+import DateTimePicker from 'react-native-modal-datetime-picker';
 
-import {Styles} from '../common';
+import {Styles, Spinner} from '../common';
 import ImgPicker from '../../api/ImgPicker';
-import {promoChanged} from '../../actions';
+import {promoChanged, promotionAdd} from '../../actions';
 
 let options = {
     title: 'เลือกรูปภาพ',
@@ -30,23 +33,87 @@ class PromotionForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            picture: null
+            loading: null,
+            isDateTimePickerVisible: false,
+            dateCheck: '',
         }
-    }    
-    getImage(){
-        ImagePicker.launchImageLibrary(options, (response) => {      
-            if (response.didCancel) {
-              console.log('User cancelled image picker');
-            }else {
-                let source = {uri: response.uri };
-                this.props.todoChanged({prop: 'image', value: source})
+    } 
+    // Up load image to firebase
+    uploadImg({uri,fileName}){
+        const imgName = fileName;
+        const image = uri;     
+        const sessionId = new Date().getTime()
+        const res = sessionId+imgName;
+        const imageRef = firebase.storage().ref('images').child(res);
+        let mime = 'image/jpg';
+        imageRef.put(image, { contentType: mime })
+            .then(() => {
+              return imageRef.getDownloadURL()
+            })
+            .then((url) => {
+                this.props.promoChanged({prop : 'image', value: url});
+                this.setState({loading: false});
+            })
+            .catch((error) => {
+              console.log(error);
+          })
+    }
+    onPressLibrary(){
+        ImagePicker.launchImageLibrary(options, (response) => {
+                if (response.didCancel) {
+                    console.log('User cancelled image picker');
+                }else {
+                    this.loadingSP(this.setState({loading: true}));     
+                    const { fileName , uri } = response;
+                    this.uploadImg({uri,fileName})
+                }
+        });
+    }
+    // Date picker 
+        //date start
+        _dateSPicker = () => this.setState({isDateTimePickerVisible: true, dateCheck: 'dateS'});
+        // date end
+        _dateEPicker = () => this.setState({isDateTimePickerVisible: true, dateCheck: 'dateE'});
+        //close date picker
+        _hideDateTimePicker = () => this.setState({isDateTimePickerVisible: false});
+
+        _handleDatePicked = (date) => { 
+            const t = date.toString();
+            const success = t.slice(3,15);
+            if(this.state.dateCheck == 'dateS'){
+                this.props.promoChanged({prop: 'dateS' , value: success})
+            }else if(this.state.dateCheck == 'dateE'){
+                this.props.promoChanged({prop: 'dateE' , value: success})
+            }else{
+                this.setState({dateCheck: ''});
             }
-          });
+            this._hideDateTimePicker();
+        }
+    // launch spinner
+    loadingSP() {
+        if(this.state.loading){
+            return(
+                <Spinner size="large"/>
+            );
+        }else if(this.state.loading == false){
+            return(
+                <View style={{width: '35%'}}>
+                        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                        <Image 
+                            source={{uri:this.props.image}}
+                            style={{height: 90,width:120}}
+                        />
+                        </View>
+                </View>
+            )
+        }else {
+            <View></View>
+        }
     }
 
     onSubmit(){
-        const { work , descriptions, categories} = this.props;
-        this.props.todoAdd({work, descriptions, categories});
+        const { promotionName, descriptions, storeName,dateS,dateE,image} = this.props;
+        this.props.promotionAdd({promotionName, descriptions, storeName,dateS,dateE,image});
     }
 
     render(){
@@ -62,15 +129,11 @@ class PromotionForm extends Component {
             />
             <View style={Styles.container}>
                 <View style={Styles.sectionRow}>
-                    <View style={{width: '35%'}}>
-                        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                            <Image
-                                style={{height: 90,width:90}}
-                                source={require('../../img/logo.png')}
-                            />
-                        </View>
-                    </View>
-                    <TouchableOpacity style={{width: '35%'}}>
+                    {this.loadingSP()}
+                    <TouchableOpacity 
+                        onPress={this.onPressLibrary.bind(this)}
+                        style={{width: '30%'}}
+                    >
                         <View style={{width: '100%'}}>
                             <Icon name='image' size={100} color={'rgb(209, 209, 209)'} style={{alignSelf:'center'}} />
                         </View>
@@ -126,15 +189,19 @@ class PromotionForm extends Component {
                         <Icon name='calendar' size={22} color={'rgb(252, 65, 32)'} style={{alignSelf:'center'}} />
                     </View>
                     <View style={{width: '85%'}}>
-                        <TextInput
-                            placeholder="วันที่เริ่ม"
-                            placeholderTextColor= "rgb(123, 123, 124)"
-                            underlineColorAndroid="rgba(123, 123, 124,.7)"
-                            autoCorrect = {false}
-                            style = {{fontSize: 16}}
-                            onChangeText = {dateS => this.props.promoChanged({prop: 'dateS', value: dateS})}
-                            value= {this.props.dateS}
-                        />
+                        <TouchableOpacity onPress={this._dateSPicker.bind(this)}>
+                            <View pointerEvents='none'>
+                                <TextInput 
+                                    editable={false}
+                                    placeholder="วันที่เริ่มต้น"
+                                    placeholderTextColor= "rgb(123, 123, 124)"
+                                    underlineColorAndroid="rgba(123, 123, 124,.7)"
+                                    autoCorrect = {false}
+                                    style = {{fontSize: 16}}
+                                    value= {this.props.dateS}
+                                />
+                            </View>
+                        </TouchableOpacity>
                     </View>
                 </View>
                 <View style={Styles.sectionRow}>
@@ -142,17 +209,27 @@ class PromotionForm extends Component {
                         <Icon name='calendar' size={22} color={'rgb(252, 65, 32)'} style={{alignSelf:'center'}} />
                     </View>
                     <View style={{width: '85%'}}>
-                        <TextInput
-                            placeholder="วันที่สิ้นสุด"
-                            placeholderTextColor= "rgb(123, 123, 124)"
-                            underlineColorAndroid="rgba(123, 123, 124,.7)"
-                            autoCorrect = {false}
-                            style = {{fontSize: 16}}
-                            onChangeText = {dateE => this.props.promoChanged({prop: 'dateE', value: dateE})}
-                            value= {this.props.dateE}
-                        />
+                    <TouchableOpacity onPress={this._dateEPicker.bind(this)}>
+                            <View pointerEvents='none'>
+                                <TextInput 
+                                    editable={false}
+                                    placeholder="วันที่เริ่มต้น"
+                                    placeholderTextColor= "rgb(123, 123, 124)"
+                                    underlineColorAndroid="rgba(123, 123, 124,.7)"
+                                    autoCorrect = {false}
+                                    style = {{fontSize: 16}}
+                                    value= {this.props.dateE}
+                                />
+                            </View>
+                        </TouchableOpacity>
                     </View>
                 </View>
+                <DateTimePicker
+                    isVisible={this.state.isDateTimePickerVisible}
+                    onConfirm={this._handleDatePicked}
+                    onCancel={this._hideDateTimePicker}
+                    is24Hour
+                />
             </View>
             </ScrollView>
         );
@@ -179,10 +256,16 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    const {promotionName, descriptions, storeName,dateS,dateE} = state.promoForm;
-    return { promotionName, descriptions, storeName,dateS,dateE };
+    const {
+        promotionName, descriptions,
+        storeName,dateS,dateE,image
+    } = state.promoForm;
+    return {
+        promotionName, descriptions,
+        storeName,dateS,dateE,image
+    };
 }
 
 export default connect(mapStateToProps,{
-    promoChanged
+    promoChanged,promotionAdd
 })(PromotionForm);

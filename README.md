@@ -9,5 +9,6 @@
 - react-thunk
 - react-native-elements
 - react-native-action-button
+- react-native-modal-datetime-picker
 - react-native-vector-icons
 - react-native-image-picker
