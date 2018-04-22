@@ -2,8 +2,11 @@ import { PROMO_CHANGED } from "../actions/types";
 
 
 const INITAIL_STATE = {
-    title: '',
+    promotionName: '',
     descriptions: '',
+    storeName: '',
+    dateS: '',
+    dateF:'',
 }
 
 export default (state = INITAIL_STATE, action) => {

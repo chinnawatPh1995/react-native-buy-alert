@@ -124,7 +124,7 @@ class TodoEdit extends Component {
                     leftComponent={
                         <Icon name='arrow-left' size={20} color={'rgb(252, 65, 32)'} onPress={() => this.props.todoClearState()}/>
                     }
-                    centerComponent={{ text: 'เพิ่มการแจ้งเตือน', style: { fontSize: 18,color: 'rgb(252, 65, 32)' } }}
+                    centerComponent={{ text: 'แก้ไข', style: { fontSize: 18,color: 'rgb(252, 65, 32)' } }}
                     rightComponent={<Icon name='check' size={25} color={'rgb(252, 65, 32)'} onPress={this.onSubmit.bind(this)} />}
                 />
                 <View style={Styles.container}>

@@ -15,6 +15,7 @@ class App extends Component {
             'Warning: componentWillMount is deprecated',
             'Warning: componentWillReceiveProps is deprecated',
             'Warning: componentWillUpdate is deprecated',
+            'Warning: Cannot update during an existing state transition',
         ]);
         const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
         return(
