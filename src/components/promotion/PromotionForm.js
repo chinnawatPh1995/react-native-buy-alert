@@ -10,7 +10,7 @@ import _ from 'lodash';
 import ImagePicker from 'react-native-image-picker';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Header } from 'react-native-elements';
+import { Header,Button } from 'react-native-elements';
 import {Actions} from 'react-native-router-flux';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 
@@ -112,17 +112,16 @@ class PromotionForm extends Component {
     }
 
     onSubmit(){
-        const { promotionName, descriptions, storeName,dateS,dateE,image} = this.props;
-        this.props.promotionAdd({promotionName, descriptions, storeName,dateS,dateE,image});
+        const { promotionName, descriptions, storeName,dateS,dateE,image,lat,long} = this.props;
+        this.props.promotionAdd({promotionName, descriptions, storeName,dateS,dateE,image,lat,long});
     }
-
     render(){
         return(
             <ScrollView contentContainerStyle={{flex: 1}}>
             <Header
                     outerContainerStyles={{ backgroundColor: '#fff' }}
                     leftComponent={
-                        <Icon name='arrow-left' size={20} color={'rgb(252, 65, 32)'} onPress={() => Actions.main()}/>
+                        <Icon name='arrow-left' size={20} color={'rgb(252, 65, 32)'} onPress={() => Actions.tab2()}/>
                     }
                     centerComponent={{ text: 'เพิ่มโปรโมชั่น', style: { fontSize: 18,color: 'rgb(252, 65, 32)' } }}
                     rightComponent={<Icon name='check' size={25} color={'rgb(252, 65, 32)'} onPress={this.onSubmit.bind(this)} />}
@@ -225,23 +224,13 @@ class PromotionForm extends Component {
                     </View>
                 </View>
                 <View style={Styles.sectionRow}>
-                    <View style={{width: '15%', justifyContent: 'center'}}>
-                        <Icon name='map-marker' size={25} color={'rgb(252, 65, 32)'} style={{alignSelf:'center'}} />
-                    </View>
-                    <View style={{width: '85%'}}>
-                    <TouchableOpacity onPress={this._dateEPicker.bind(this)}>
-                            <View pointerEvents='none'>
-                                <TextInput 
-                                    editable={false}
-                                    placeholder="สถานที่"
-                                    placeholderTextColor= "rgb(123, 123, 124)"
-                                    underlineColorAndroid="rgba(123, 123, 124,.7)"
-                                    autoCorrect = {false}
-                                    style = {{fontSize: 16}}
-                                    value= {this.props.dateE}
-                                />
-                            </View>
-                        </TouchableOpacity>
+                    <View style={{width: '100%', alignItems: 'center', marginTop: 5}}>
+                        <Icon
+                            name='map-marker'
+                            size={30}
+                            color='rgb(255, 0, 0)'
+                            onPress={() => Actions.mapMarker()}
+                        />
                     </View>
                 </View>
                 <DateTimePicker

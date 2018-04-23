@@ -11,7 +11,7 @@ import { Actions } from 'react-native-router-flux';
 import {connect} from 'react-redux';
 import ActionButton from 'react-native-action-button';
 
-import { Styles,BtnCircle } from '../common';
+import { Styles } from '../common';
 import {todoFetch} from '../../actions';
 
 
@@ -81,6 +81,7 @@ const mapStateToProps = state => {
     const todo = _.map(state.todo, (val, uid) => {
         return { ...val, uid };
     });
+    console.log('todo : ',todo);
     return { todo };
 };
 

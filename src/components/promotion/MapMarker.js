@@ -11,6 +11,8 @@ import {
 import MapView, { ProviderPropType, Marker, AnimatedRegion } from 'react-native-maps';
 import {connect} from 'react-redux';
 import {promoChanged} from '../../actions';
+import { Actions } from 'react-native-router-flux';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 const screen = Dimensions.get('window');
@@ -34,9 +36,9 @@ class MapMarker extends React.Component {
       coordinate: {
         latitude: LATITUDE,
         longitude: LONGITUDE,
-    }
+      }
     };
-  }
+}
 
   componentDidMount() {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -50,7 +52,7 @@ class MapMarker extends React.Component {
         this.setState({coordinate: initialRegion});
       }, 
       (error) => console.log(error),
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+      { enableHighAccuracy: true, timeout: 20000},
     );
     this.watchID = navigator.geolocation.watchPosition((position) => {
       var lastRegion = {
@@ -67,14 +69,16 @@ class MapMarker extends React.Component {
 
   onSubmitLatLong= () => {
     const {latitude, longitude} = this.state.region;
+    console.log(latitude,longitude);
     this.props.promoChanged({prop: 'lat', value: latitude});
     this.props.promoChanged({prop: 'long', value: longitude});
+
+    Actions.promotionForm();
   }
   onRegionChange(region) {
     this.setState({ region });
   }
   render() {
-    console.log(this.props);
     return (
       <View style={styles.container}>
         <MapView
@@ -82,17 +86,24 @@ class MapMarker extends React.Component {
           initialRegion={this.state.region}
           onRegionChange={this.onRegionChange.bind(this)}
         >
-            <Marker
-                coordinate={this.state.coordinate}  
-            />
+              <MapView.Marker
+                key={this.state.coordinate}
+                coordinate={this.state.coordinate}
+              />
         </MapView>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            onPress={() => this.onSubmitLatLong()}
-            style={[styles.bubble, styles.button]}
-          >
-            <Text>Animate</Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => Actions.promotionForm()}
+              style={[styles.bubble, styles.button]}
+            >
+                <Icon name="arrow-left" size={20}/>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => this.onSubmitLatLong()}
+              style={[styles.bubble, styles.button]}
+            >
+              <Text>ตกลง</Text>
+            </TouchableOpacity>
         </View>
       </View>
     );
@@ -109,14 +120,13 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
   },
   bubble: {
-    flex: 1,
     backgroundColor: 'rgba(255,255,255,0.7)',
     paddingHorizontal: 18,
     paddingVertical: 12,
     borderRadius: 20,
   },
   button: {
-    width: 80,
+    width: 100,
     paddingHorizontal: 12,
     alignItems: 'center',
     marginHorizontal: 10,

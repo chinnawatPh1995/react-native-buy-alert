@@ -10,6 +10,7 @@ import LoginCheck from './components/login/LoginCheck';
 import TodoForm from './components/todo/TodoForm';
 import TodoEdit from './components/todo/TodoEdit';
 import PromotionList from './components/promotion/PromotionList';
+import PromotionForm from './components/promotion/PromotionForm';
 import MapMarker from './components/promotion/MapMarker';
 
 // Tabbar
@@ -92,8 +93,6 @@ const Routers = () =>{
                     key = "todoForm"
                     component = {TodoForm}
                     hideNavBar
-                    navigationBarStyle={styles.navbar}
-                    titleStyle={styles.titleStyle}
                     rightTitle=" "
                     headerTintColor="#fff"
                     rightTitle={<Icon name="check" size={10}/>}
@@ -104,10 +103,22 @@ const Routers = () =>{
                     component = {TodoEdit}
                     title="แก้ไข"
                     hideNavBar
-                    navigationBarStyle={styles.navbar}
-                    titleStyle={styles.titleStyle}
-                    rightTitle={<Icon></Icon>}
                     headerTintColor="#fff"
+                    onRight={() => console.log('') }
+                />
+                <Scene
+                    key = "promotionForm"
+                    component = {PromotionForm}
+                    title="แก้ไข"
+                    hideNavBar
+                    headerTintColor="#fff"
+                    onRight={() => console.log('') }
+                />
+                <Scene
+                    key = "mapMarker"
+                    component = {MapMarker}
+                    hideNavBar
+                    rightTitle={<Icon></Icon>}
                     onRight={() => console.log('') }
                 />
             </Stack>  

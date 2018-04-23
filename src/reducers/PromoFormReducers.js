@@ -7,7 +7,9 @@ const INITAIL_STATE = {
     storeName: '',
     dateS: '',
     dateF:'',
-    image: null
+    image: null,
+    lat: '',
+    long: ''
 }
 
 export default (state = INITAIL_STATE, action) => {
