@@ -87,7 +87,7 @@ class TodoForm extends Component {
             return(
                 <Image 
                     source={{uri:this.props.image}}
-                    style={{height: 230,width:230}}
+                    style={{height: 300,width:300}}
                 />
             )
         }
@@ -156,11 +156,11 @@ class TodoForm extends Component {
                 </View>
                 <ActionButton
                     buttonColor="rgba(0,0,0,0)"
-                    size={30}
+                    size={40}
                     position="left"
                     offsetX={10}
                     offsetY={10}
-                    renderIcon={() => <Icon name="plus-square" size={25} color={'rgb(252, 65, 32)'} />}
+                    renderIcon={() => <Icon name="plus-square" size={35} color={'rgb(252, 65, 32)'} />}
                 >
                     <ActionButton.Item 
                         buttonColor='rgb(255, 96, 68)' title="Camera" 
@@ -168,7 +168,7 @@ class TodoForm extends Component {
                         shadowStyle ={{elevation: 0}}
                         hideLabelShadow
                     >
-                        <Icon name="camera" color={'#fff'}/>
+                        <Icon name="camera" color={'#fff'} size={20}/>
                     </ActionButton.Item>
                     <ActionButton.Item 
                         buttonColor='rgb(255, 96, 68)' title="Gallery" 
@@ -176,25 +176,28 @@ class TodoForm extends Component {
                         hideLabelShadow
                         onPress={this.onPressLibrary.bind(this)}
                     >
-                        <Icon name="image" color={'#fff'}/>
+                        <Icon name="image" color={'#fff'} size={20}/>
                     </ActionButton.Item>
                 </ActionButton>
+
                 <ActionButton
                     buttonColor="rgba(0,0,0,0)"
-                    size={30}
-                    offsetX={10}
-                    offsetY={10}
-                    renderIcon={() => <Icon name="chevron-circle-up" size={28}  color={'rgb(252, 65, 32)'}/>}
+                    size={55}
+                    offsetX={5}
+                    offsetY={3}
+                    renderIcon={() => <Icon name="chevron-circle-up" size={40}  color={'rgb(252, 65, 32)'}/>}
                 >
                     <ActionButton.Item 
                         buttonColor='rgb(255, 96, 68)' title="Share" 
                         onPress={() => console.log("notes tapped!")}
                         shadowStyle ={{elevation: 0}}
                         hideLabelShadow
+                        size={40}
                     >
-                        <Icon name="share" color={'#fff'}/>
+                        <Icon name="share" color={'#fff'} size={20}/>
                     </ActionButton.Item>
                 </ActionButton>
+                
             </ScrollView>
         );
     }
