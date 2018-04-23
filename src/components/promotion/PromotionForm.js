@@ -213,7 +213,27 @@ class PromotionForm extends Component {
                             <View pointerEvents='none'>
                                 <TextInput 
                                     editable={false}
-                                    placeholder="วันที่เริ่มต้น"
+                                    placeholder="วันที่สิ้นสุด"
+                                    placeholderTextColor= "rgb(123, 123, 124)"
+                                    underlineColorAndroid="rgba(123, 123, 124,.7)"
+                                    autoCorrect = {false}
+                                    style = {{fontSize: 16}}
+                                    value= {this.props.dateE}
+                                />
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                <View style={Styles.sectionRow}>
+                    <View style={{width: '15%', justifyContent: 'center'}}>
+                        <Icon name='map-marker' size={25} color={'rgb(252, 65, 32)'} style={{alignSelf:'center'}} />
+                    </View>
+                    <View style={{width: '85%'}}>
+                    <TouchableOpacity onPress={this._dateEPicker.bind(this)}>
+                            <View pointerEvents='none'>
+                                <TextInput 
+                                    editable={false}
+                                    placeholder="สถานที่"
                                     placeholderTextColor= "rgb(123, 123, 124)"
                                     underlineColorAndroid="rgba(123, 123, 124,.7)"
                                     autoCorrect = {false}
@@ -257,12 +277,12 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     const {
-        promotionName, descriptions,
-        storeName,dateS,dateE,image
+        promotionName, descriptions,storeName,
+        dateS,dateE,image, lat, long
     } = state.promoForm;
     return {
         promotionName, descriptions,
-        storeName,dateS,dateE,image
+        storeName,dateS,dateE,image, lat, long
     };
 }
 

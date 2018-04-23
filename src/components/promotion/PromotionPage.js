@@ -4,11 +4,12 @@ import { View, Text,
 } from 'react-native';
 import PromotionList from './PromotionList';
 import PromotionForm from './PromotionForm';
+import MapMarker from './MapMarker';
 
 class PromotionPage extends Component {
     render(){
         return(
-            <PromotionForm/>
+            <MapMarker/>
         );
     }
 }

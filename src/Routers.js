@@ -9,6 +9,8 @@ import Register from './components/register/RegisterPage';
 import LoginCheck from './components/login/LoginCheck';
 import TodoForm from './components/todo/TodoForm';
 import TodoEdit from './components/todo/TodoEdit';
+import PromotionList from './components/promotion/PromotionList';
+import MapMarker from './components/promotion/MapMarker';
 
 // Tabbar
 import TodoPage from './components/todo/TodoPage';
