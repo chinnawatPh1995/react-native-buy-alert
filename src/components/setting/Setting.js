@@ -15,18 +15,20 @@ class Setting extends Component {
     }
     render(){
         return(
-            <Button
-                icon={
-                    <Icon
-                    name='arrow-left'
-                    size={15}
-                    color='white'
-                    />
-                }
-                iconLeft
-                title='Log Out'
-                onPress = {() => this.onPresslogOut()}
-            />
+            <View style={{flex:1,backgroundColor: '#fff', justifyContent:'center'}}>
+                <Button
+                    icon={
+                        <Icon
+                        name='arrow-left'
+                        size={15}
+                        color='white'
+                        />
+                    }
+                    iconLeft
+                    title='Log Out'
+                    onPress = {() => this.onPresslogOut()}
+                />
+            </View>
         );
     }
 }

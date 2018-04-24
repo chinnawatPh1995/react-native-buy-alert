@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "firebase": "^4.12.1",
+    "geolib": "^2.0.24",
     "lodash": "^4.17.5",
     "react": "16.3.0-alpha.0",
     "react-native": "0.55.0",
@@ -17,12 +18,12 @@
     "react-native-image-picker": "^0.26.7",
     "react-native-maps": "0.19.0",
     "react-native-modal-datetime-picker": "^5.1.0",
-    "react-native-modalbox": "^1.4.2",
     "react-native-popup-dialog": "^0.11.46",
     "react-native-router-flux": "^4.0.0-beta.28",
     "react-native-vector-icons": "^4.6.0",
     "react-redux": "^5.0.7",
     "react-thunk": "^1.0.0",
+    "react-timer-mixin": "^0.13.3",
     "redux": "^4.0.0",
     "redux-thunk": "^2.2.0",
     "validator": "^9.4.1"

@@ -12,6 +12,9 @@ import TodoEdit from './components/todo/TodoEdit';
 import PromotionList from './components/promotion/PromotionList';
 import PromotionForm from './components/promotion/PromotionForm';
 import MapMarker from './components/promotion/MapMarker';
+import PromotionEdit from './components/promotion/PromotionEdit';
+import DisplayPro    from './components/promotion/DisplayPro';
+import ProEditList from './components/promotion/ProEditList';
 
 // Tabbar
 import TodoPage from './components/todo/TodoPage';
@@ -54,7 +57,6 @@ const Routers = () =>{
                     rightTitle=" "
                     hideNavBar
                     headerTintColor="#fff"
-                    onRight={() => console.log('') }
                 />
                 <Scene type="replace" key="tabbar"  duration={1}>
                     <Tabs
@@ -81,9 +83,9 @@ const Routers = () =>{
                                 icon={TabIcon}
                         />
                         <Scene  key="tab3"
-                                title="Setting"
+                                title="User"
                                 hideNavBar
-                                iconName="gear"
+                                iconName="user"
                                 component={Setting}
                                 icon={TabIcon}
                         />
@@ -104,7 +106,6 @@ const Routers = () =>{
                     title="แก้ไข"
                     hideNavBar
                     headerTintColor="#fff"
-                    onRight={() => console.log('') }
                 />
                 <Scene
                     key = "promotionForm"
@@ -112,14 +113,26 @@ const Routers = () =>{
                     title="แก้ไข"
                     hideNavBar
                     headerTintColor="#fff"
-                    onRight={() => console.log('') }
                 />
                 <Scene
                     key = "mapMarker"
                     component = {MapMarker}
                     hideNavBar
-                    rightTitle={<Icon></Icon>}
-                    onRight={() => console.log('') }
+                />
+                <Scene
+                    key = "promotionEdit"
+                    component = {PromotionEdit}
+                    hideNavBar
+                />
+                <Scene
+                    key = "displayPro"
+                    component = {DisplayPro}
+                    hideNavBar
+                />
+                <Scene
+                    key= "proeditlist"
+                    component = {ProEditList}
+                    title= "รายการ"
                 />
             </Stack>  
         </Router>

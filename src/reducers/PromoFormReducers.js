@@ -1,4 +1,4 @@
-import { PROMO_CHANGED, PROMO_ADD } from "../actions/types";
+import { PROMO_CHANGED, PROMO_ADD, PROMO_SAVE } from "../actions/types";
 
 
 const INITAIL_STATE = {
@@ -19,6 +19,8 @@ export default (state = INITAIL_STATE, action) => {
                 ...state, [action.payload.prop] : action.payload.value
             }
         case PROMO_ADD:
+            return INITAIL_STATE;
+        case PROMO_SAVE: 
             return INITAIL_STATE;
         default:
             return INITAIL_STATE;

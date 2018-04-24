@@ -16,7 +16,7 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 
 import {Styles, Spinner} from '../common';
 import ImgPicker from '../../api/ImgPicker';
-import {promoChanged, promotionAdd} from '../../actions';
+import {promoChanged, promotionAdd,promoSaveChanged} from '../../actions';
 
 let options = {
     title: 'เลือกรูปภาพ',
@@ -29,15 +29,20 @@ let options = {
     }
 };
 
-class PromotionForm extends Component {
+class PromotionEdit extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            loading: null,
+            loading: false,
             isDateTimePickerVisible: false,
             dateCheck: '',
         }
     } 
+    componentDidMount() {
+        _.each(this.props.promotion, (value, prop) => {
+           this.props.promoChanged({ prop, value });
+        });
+    }
     // Up load image to firebase
     uploadImg({uri,fileName}){
         const imgName = fileName;
@@ -91,6 +96,7 @@ class PromotionForm extends Component {
         }
     // launch spinner
     loadingSP() {
+        console.log('image',this.props.image);
         if(this.state.loading){
             return(
                 <Spinner size="large"/>
@@ -113,7 +119,7 @@ class PromotionForm extends Component {
 
     onSubmit(){
         const { promotionName, descriptions, storeName,dateS,dateE,image,lat,long} = this.props;
-        this.props.promotionAdd({promotionName, descriptions, storeName,dateS,dateE,image,lat,long});
+        this.props.promoSaveChanged({promotionName, descriptions, storeName,dateS,dateE,image,lat,long, uid: this.props.promotion.uid});
     }
     render(){
         return(
@@ -121,9 +127,9 @@ class PromotionForm extends Component {
             <Header
                     outerContainerStyles={{ backgroundColor: '#fff' }}
                     leftComponent={
-                        <Icon name='arrow-left' size={20} color={'rgb(252, 65, 32)'} onPress={() => Actions.tab2()}/>
+                        <Icon name='arrow-left' size={20} color={'rgb(252, 65, 32)'} onPress={() => Actions.proeditlist()}/>
                     }
-                    centerComponent={{ text: 'เพิ่มโปรโมชั่น', style: { fontSize: 18,color: 'rgb(252, 65, 32)' } }}
+                    centerComponent={{ text: 'แก้ไข', style: { fontSize: 18,color: 'rgb(252, 65, 32)' } }}
                     rightComponent={<Icon name='check' size={25} color={'rgb(252, 65, 32)'} onPress={this.onSubmit.bind(this)} />}
             />
             <View style={Styles.container}>
@@ -276,5 +282,5 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps,{
-    promoChanged,promotionAdd
-})(PromotionForm);
+    promoChanged,promotionAdd,promoSaveChanged
+})(PromotionEdit);

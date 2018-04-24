@@ -81,7 +81,6 @@ const mapStateToProps = state => {
     const todo = _.map(state.todo, (val, uid) => {
         return { ...val, uid };
     });
-    console.log('todo : ',todo);
     return { todo };
 };
 

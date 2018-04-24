@@ -9,3 +9,17 @@ https://medium.com/@taweesoft/chapter-2-read-and-write-to-firebase-real-time-tod
 
 
 swipeToClose({/*{this.state.swipeToClose ? "true" : "false"}*/})
+
+
+        // let query = firebase.database().ref('Location/');
+        // query.on('value', (snapshot) =>  {
+        //     let location = snapshot.val();
+        //     for(let i = 0; i<location.length; i++) {
+        //         let category = location[i].category;
+        //         for(let ii = 0; ii < category.length;ii++) {
+        //             if(category[ii] == "บ้าน") {
+        //                 this.setState({result: location[i].name});
+        //             }
+        //         }
+        //     }
+        // })

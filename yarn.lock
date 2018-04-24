@@ -1809,7 +1809,7 @@ core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
 
-create-react-class@^15.6.0, create-react-class@^15.6.3:
+create-react-class@^15.6.3:
   version "15.6.3"
   resolved "https://registry.yarnpkg.com/create-react-class/-/create-react-class-15.6.3.tgz#2d73237fb3f970ae6ebe011a9e66f46dbca80036"
   dependencies:
@@ -2469,6 +2469,10 @@ gauge@~2.7.3:
     string-width "^1.0.1"
     strip-ansi "^3.0.1"
     wide-align "^1.1.0"
+
+geolib@^2.0.24:
+  version "2.0.24"
+  resolved "https://registry.yarnpkg.com/geolib/-/geolib-2.0.24.tgz#eb3d7fbc65f5ea3354a5af6054563ebe9f33e5f4"
 
 get-caller-file@^1.0.1:
   version "1.0.2"
@@ -4689,13 +4693,6 @@ react-native-modal@^5.4.0:
     prop-types "^15.6.1"
     react-native-animatable "^1.2.4"
 
-react-native-modalbox@^1.4.2:
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/react-native-modalbox/-/react-native-modalbox-1.4.2.tgz#818c9354c9b13327ec807c6436e8516b3b419478"
-  dependencies:
-    create-react-class "^15.6.0"
-    prop-types "^15.5.10"
-
 react-native-popup-dialog@^0.11.46:
   version "0.11.46"
   resolved "https://registry.yarnpkg.com/react-native-popup-dialog/-/react-native-popup-dialog-0.11.46.tgz#dfea01a2ed2ae7f8565d1d63903761a6c402f6c6"
@@ -4841,7 +4838,7 @@ react-thunk@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-thunk/-/react-thunk-1.0.0.tgz#79813d47f31147e81aee841ed5e76a9e3eabc8b1"
 
-react-timer-mixin@^0.13.2:
+react-timer-mixin@^0.13.2, react-timer-mixin@^0.13.3:
   version "0.13.3"
   resolved "https://registry.yarnpkg.com/react-timer-mixin/-/react-timer-mixin-0.13.3.tgz#0da8b9f807ec07dc3e854d082c737c65605b3d22"
 

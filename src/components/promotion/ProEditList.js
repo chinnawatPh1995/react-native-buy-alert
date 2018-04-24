@@ -12,13 +12,13 @@ import _ from 'lodash';
 
 import {promotionFetch} from '../../actions';
 
-class PromotionList extends Component{
+class ProEditList extends Component{
     componentDidMount() {
         this.props.promotionFetch();
     }
 
     onRenderItem = (item) => {
-        Actions.displayPro({promotion : item});
+        Actions.promotionEdit({promotion : item});
     }
 
     renderRow = (item) => {
@@ -67,7 +67,6 @@ class PromotionList extends Component{
                             buttonColor='rgb(255, 96, 68)' title="Edit" 
                             shadowStyle ={{elevation: 0}}
                             hideLabelShadow
-                            onPress= {() => Actions.proeditlist()}
                             size= {35}
                         >
                             <Icon name="edit" size={20} color={'#fff'}/>
@@ -125,4 +124,4 @@ const mapStateToProps = state => {
     });
     return {promotion}
 }
-export default connect(mapStateToProps,{promotionFetch})(PromotionList);
+export default connect(mapStateToProps,{promotionFetch})(ProEditList);
