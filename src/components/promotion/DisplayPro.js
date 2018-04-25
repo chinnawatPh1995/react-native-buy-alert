@@ -28,7 +28,7 @@ class DispalyPro extends Component {
             dateS,dateE,image, lat, long
         } = this.props;
         return(
-            <ScrollView contentContainerStyle={{flex: 1, backgroundColor:'#fff'}}>
+            <ScrollView contentContainerStyle={{flexGrow: 1,backgroundColor:'#fff'}}>
             <Header
                     outerContainerStyles={{ backgroundColor: '#fff' }}
                     leftComponent={
@@ -36,7 +36,7 @@ class DispalyPro extends Component {
                     }
                     centerComponent={{ text: this.props.storeName, style: { fontSize: 18,color: 'rgb(252, 65, 32)' } }}
             />
-            <View style={Styles.container}>
+            <View style={{flex:1, backgroundColor:'#fff'}}>
                 <View style={{width:'100%'}}>
                     <Image 
                         source={{uri:image}}
@@ -51,7 +51,7 @@ class DispalyPro extends Component {
                     </View>
                     <Text style={styles.storeName}> {storeName}</Text>
                 </View>
-                <View style={styles.containerText}>
+                <View style={[styles.containerText,{marginLeft: 10}]}>
                     <Text style={{fontSize: 16}}>
                         {this.props.descriptions}
                     </Text>

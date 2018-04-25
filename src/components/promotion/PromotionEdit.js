@@ -123,7 +123,7 @@ class PromotionEdit extends Component {
     }
     render(){
         return(
-            <ScrollView contentContainerStyle={{flex: 1}}>
+            <ScrollView contentContainerStyle={{flexGrow: 1}}>
             <Header
                     outerContainerStyles={{ backgroundColor: '#fff' }}
                     leftComponent={

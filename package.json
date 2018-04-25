@@ -9,7 +9,7 @@
   "dependencies": {
     "firebase": "^4.12.1",
     "geolib": "^2.0.24",
-    "lodash": "^4.17.5",
+    "lodash": "^4.17.10",
     "react": "16.3.0-alpha.0",
     "react-native": "0.55.0",
     "react-native-action-button": "^2.8.4",

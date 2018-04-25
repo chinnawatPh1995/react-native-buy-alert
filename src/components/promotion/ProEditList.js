@@ -46,7 +46,7 @@ class ProEditList extends Component{
 
     render(){
         return(
-            <ScrollView contentContainerStyle={{flex: 1, backgroundColor:'#fff'}}>
+            <ScrollView style={{flexGrow: 1, backgroundColor: "#fff"}}>
                 <View style={Styles.container}>
                 <View style={{flexDirection: 'row'}}>
                         <FlatList
@@ -56,31 +56,6 @@ class ProEditList extends Component{
                             keyExtractor={(item, index) => item.uid}
                         />
                 </View>
-                <ActionButton
-                    buttonColor="rgb(252, 65, 32)"
-                    size={40}
-                    offsetX={20}
-                    offsetY={20}
-                    renderIcon ={() => <Icon name="ellipsis-v" size={20} color={'#fff'}/>}
-                >
-                    <ActionButton.Item 
-                            buttonColor='rgb(255, 96, 68)' title="Edit" 
-                            shadowStyle ={{elevation: 0}}
-                            hideLabelShadow
-                            size= {35}
-                        >
-                            <Icon name="edit" size={20} color={'#fff'}/>
-                        </ActionButton.Item>
-                        <ActionButton.Item 
-                            buttonColor='rgb(255, 96, 68)' title="Add" 
-                            shadowStyle ={{elevation: 0}}
-                            hideLabelShadow
-                            onPress= {() => Actions.promotionForm()}
-                            size= {35}
-                        >
-                            <Icon name="plus" size={20} color={'#fff'}/>
-                        </ActionButton.Item>
-                </ActionButton>
                 </View>
             </ScrollView>
         );

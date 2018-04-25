@@ -46,7 +46,7 @@ class PromotionList extends Component{
 
     render(){
         return(
-            <ScrollView contentContainerStyle={{flex: 1, backgroundColor:'#fff'}}>
+            <ScrollView contentContainerStyle={{flexGrow: 1, backgroundColor:'#fff'}}>
                 <View style={Styles.container}>
                 <View style={{flexDirection: 'row'}}>
                         <FlatList

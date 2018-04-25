@@ -7,7 +7,7 @@ import PromotionList from './PromotionList';
 class PromotionPage extends Component {
     render(){
         return(
-            <PromotionList/>
+                <PromotionList/>
         );
     }
 }

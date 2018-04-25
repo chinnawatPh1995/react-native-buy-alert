@@ -39,8 +39,8 @@ componentDidMount() {
         navigator.geolocation.getCurrentPosition((position) => {
             console.log(position.coords.latitude)
             const getMeter = geolib.getDistance(position.coords, {
-                    latitude: 13.6504129,
-                    longitude: 100.294508
+                    latitude: 13.8187621,
+                    longitude: 100.5142132
                 })
                 this._onAlert(getMeter);
                 this.setTimeInterval(getMeter);
