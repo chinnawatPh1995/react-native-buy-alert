@@ -1,4 +1,4 @@
-import { PROMO_CHANGED, PROMO_ADD, PROMO_SAVE } from "../actions/types";
+import { PROMO_CHANGED, PROMO_ADD, PROMO_SAVE, PROMO_CLEAR } from "../actions/types";
 
 
 const INITAIL_STATE = {
@@ -21,6 +21,8 @@ export default (state = INITAIL_STATE, action) => {
         case PROMO_ADD:
             return INITAIL_STATE;
         case PROMO_SAVE: 
+            return INITAIL_STATE;
+        case PROMO_CLEAR: 
             return INITAIL_STATE;
         default:
             return INITAIL_STATE;

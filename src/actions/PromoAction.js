@@ -1,7 +1,7 @@
 import firebase from 'react-native-firebase';
 
 import {
-    PROMO_CHANGED, PROMO_ADD, PROMO_FETCH_SUSSES, PROMO_SAVE
+    PROMO_CHANGED, PROMO_ADD, PROMO_FETCH_SUSSES, PROMO_SAVE, PROMO_CLEAR
 } from './types';
 import { Actions } from 'react-native-router-flux';
 
@@ -55,5 +55,12 @@ export const promoSaveChanged = ({promotionName, descriptions,storeName,dateS,da
             Actions.tab2();
         })
         .catch(()=> console.log("No !!!!"))
+    }
+}
+
+export const promotionClear = () => {
+    Actions.proeditlist();
+    return{
+        type: PROMO_CLEAR,
     }
 }

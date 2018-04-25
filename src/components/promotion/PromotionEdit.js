@@ -16,7 +16,7 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 
 import {Styles, Spinner} from '../common';
 import ImgPicker from '../../api/ImgPicker';
-import {promoChanged, promotionAdd,promoSaveChanged} from '../../actions';
+import {promoChanged, promotionAdd,promoSaveChanged,promotionClear} from '../../actions';
 
 let options = {
     title: 'เลือกรูปภาพ',
@@ -121,13 +121,16 @@ class PromotionEdit extends Component {
         const { promotionName, descriptions, storeName,dateS,dateE,image,lat,long} = this.props;
         this.props.promoSaveChanged({promotionName, descriptions, storeName,dateS,dateE,image,lat,long, uid: this.props.promotion.uid});
     }
+    onPressClear() {
+        this.props.promotionClear();
+    }
     render(){
         return(
             <ScrollView contentContainerStyle={{flexGrow: 1}}>
             <Header
                     outerContainerStyles={{ backgroundColor: '#fff' }}
                     leftComponent={
-                        <Icon name='arrow-left' size={20} color={'rgb(252, 65, 32)'} onPress={() => Actions.proeditlist()}/>
+                        <Icon name='arrow-left' size={20} color={'rgb(252, 65, 32)'} onPress={() => this.onPressClear()}/>
                     }
                     centerComponent={{ text: 'แก้ไข', style: { fontSize: 18,color: 'rgb(252, 65, 32)' } }}
                     rightComponent={<Icon name='check' size={25} color={'rgb(252, 65, 32)'} onPress={this.onSubmit.bind(this)} />}
@@ -282,5 +285,5 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps,{
-    promoChanged,promotionAdd,promoSaveChanged
+    promoChanged,promotionAdd,promoSaveChanged,promotionClear
 })(PromotionEdit);

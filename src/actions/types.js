@@ -29,3 +29,4 @@ export const PROMO_ADD = 'promo_add';
 export const PROMO_SAVE = 'promo_save';
 export const PROMO_DELECTED = 'promo_delet';
 export const PROMO_FETCH_SUSSES = 'promo_fetch_susses';
+export const PROMO_CLEAR = 'promotion_clear';
