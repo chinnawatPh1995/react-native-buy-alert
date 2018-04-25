@@ -41,12 +41,12 @@ export const todoFetch = () => {
     };
 }
 
-export const todoSaveChanged = ({work, descriptions, categories,uid}) => {
+export const todoSaveChanged = ({work, descriptions, categories,image,uid}) => {
     const { currentUser } = firebase.auth();
     const todo = firebase.database().ref(`/todos/${currentUser.uid}/todolist/${uid}`);
 
     return (dispatch) => {
-        todo.set({work, descriptions, categories})
+        todo.set({work, descriptions, categories,image})
         .then(() => {
             dispatch({type: TODO_SAVE_SUSSES})
             Actions.main();

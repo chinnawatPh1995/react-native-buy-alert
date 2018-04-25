@@ -8,7 +8,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import ActionButton from 'react-native-action-button';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
+import { Header,Button } from 'react-native-elements';
 import _ from 'lodash';
+
 
 import {promotionFetch} from '../../actions';
 
@@ -47,6 +49,13 @@ class ProEditList extends Component{
     render(){
         return(
             <ScrollView style={{flexGrow: 1, backgroundColor: "#fff"}}>
+                <Header
+                    outerContainerStyles={{ backgroundColor: '#fff' }}
+                    leftComponent={
+                        <Icon name='arrow-left' size={20} color={'rgb(252, 65, 32)'} onPress={() => Actions.tab2()}/>
+                    }
+                    centerComponent={{ text: 'รายการ', style: { fontSize: 18,color: 'rgb(252, 65, 32)' } }}
+                />
                 <View style={Styles.container}>
                 <View style={{flexDirection: 'row'}}>
                         <FlatList

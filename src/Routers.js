@@ -133,6 +133,7 @@ const Routers = () =>{
                     key= "proeditlist"
                     component = {ProEditList}
                     title= "รายการ"
+                    hideNavBar
                 />
             </Stack>  
         </Router>

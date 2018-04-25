@@ -13,6 +13,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Header,Button } from 'react-native-elements';
 import {Actions} from 'react-native-router-flux';
 import {promoChanged } from '../../actions'
+import { Rating, AirbnbRating } from 'react-native-ratings'; 
 
 import {Styles, Spinner} from '../common';
 
@@ -52,11 +53,20 @@ class DispalyPro extends Component {
                     <Text style={styles.storeName}> {storeName}</Text>
                 </View>
                 <View style={[styles.containerText,{marginLeft: 10}]}>
+                    <Text style={{fontSize: 16,fontWeight: 'bold'}}>
+                        รายละเอียด
+                    </Text>
                     <Text style={{fontSize: 16}}>
                         {this.props.descriptions}
                     </Text>
                 </View>
             </View>
+            <AirbnbRating
+                count={5}
+                reviews={["แย่มาก", "แย่", "พอใช้", "เยี่ยม", "ยอดเยี่ยม"]}
+                defaultRating={0}
+                size={30}
+            />
             </ScrollView>
         );
     }
