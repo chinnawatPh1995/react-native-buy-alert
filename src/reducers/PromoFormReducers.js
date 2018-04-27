@@ -13,6 +13,7 @@ const INITAIL_STATE = {
 }
 
 export default (state = INITAIL_STATE, action) => {
+    console.log('Reducers : ',action.payload)
     switch(action.type){
         case PROMO_CHANGED:
             return {

@@ -69,11 +69,10 @@ class MapMarker extends React.Component {
 
   onSubmitLatLong= () => {
     const {latitude, longitude} = this.state.region;
-    console.log(latitude,longitude);
     this.props.promoChanged({prop: 'lat', value: latitude});
     this.props.promoChanged({prop: 'long', value: longitude});
 
-    Actions.promotionForm();
+    Actions.promotionForm({reload : true});
   }
   onRegionChange(region) {
     this.setState({ region });
@@ -87,13 +86,13 @@ class MapMarker extends React.Component {
           onRegionChange={this.onRegionChange.bind(this)}
         >
               <MapView.Marker
-                key={this.state.coordinate}
-                coordinate={this.state.coordinate}
+                key={this.state.region}
+                coordinate={this.state.region}
               />
         </MapView>
         <View style={styles.buttonContainer}>
             <TouchableOpacity
-              onPress={() => Actions.promotionForm()}
+              onPress={() => Actions.promotionForm({reload : true})}
               style={[styles.bubble, styles.button]}
             >
                 <Icon name="arrow-left" size={20}/>

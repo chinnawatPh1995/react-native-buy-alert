@@ -58,14 +58,24 @@ export const todoDelected = ({work, descriptions, categories,image,uid}) => {
     const { currentUser } = firebase.auth();
     const todo = firebase.database().ref(`/todos/${currentUser.uid}/todolist/${uid}`);
     const desertRef = firebase.storage().refFromURL(image)
-    return(dispatch) => {
-        todo.remove({work, descriptions, categories,image })
-        .then(() => {
-            desertRef.delete().then(() => {
+    if(image != null ){
+        return(dispatch) => {
+            todo.remove({work, descriptions, categories})
+            .then(() => {
+                desertRef.delete().then(() => {
+                    dispatch({type:TODO_DELECTED});
+                    Actions.main();
+                })
+            });
+        }
+    }else {
+        return(dispatch) => {
+            todo.remove({work, descriptions, categories})
+            .then(() => {
                 dispatch({type:TODO_DELECTED});
                 Actions.main();
-            })
-        });
+            });
+        }
     }
 }
 

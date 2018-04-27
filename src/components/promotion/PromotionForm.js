@@ -91,6 +91,8 @@ class PromotionForm extends Component {
         }
     // launch spinner
     loadingSP() {
+        console.log(this.props.reload);
+        console.log(this.props.image);
         if(this.state.loading){
             return(
                 <Spinner size="large"/>
@@ -106,8 +108,17 @@ class PromotionForm extends Component {
                         </View>
                 </View>
             )
-        }else {
-            <View></View>
+        }else if(this.props.reload){
+            return(
+                <View style={{width: '35%'}}>
+                        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                        <Image 
+                            source={{uri:this.props.image}}
+                            style={{height: 90,width:120}}
+                        />
+                        </View>
+                </View>
+            )
         }
     }
 
@@ -116,6 +127,7 @@ class PromotionForm extends Component {
         this.props.promotionAdd({promotionName, descriptions, storeName,dateS,dateE,image,lat,long});
     }
     render(){
+        
         return(
             <ScrollView contentContainerStyle={{flex: 1}}>
             <Header

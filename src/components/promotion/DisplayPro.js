@@ -50,7 +50,7 @@ class DispalyPro extends Component {
                         <Text style={styles.dateText}>{dateS}  -</Text>
                         <Text style={styles.dateText}>{dateE}</Text>
                     </View>
-                    <Text style={styles.storeName}> {storeName}</Text>
+                    <Text style={styles.storeName}>{storeName}</Text>
                 </View>
                 <View style={[styles.containerText,{marginLeft: 10}]}>
                     <Text style={{fontSize: 16,fontWeight: 'bold'}}>

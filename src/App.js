@@ -10,6 +10,7 @@ import reducers from './reducers';
 import Routers from './Routers';
 
 class App extends Component {
+
     render(){
         YellowBox.ignoreWarnings([
             'Warning: componentWillMount is deprecated',

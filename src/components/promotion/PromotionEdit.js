@@ -13,10 +13,11 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Header,Button } from 'react-native-elements';
 import {Actions} from 'react-native-router-flux';
 import DateTimePicker from 'react-native-modal-datetime-picker';
+import ActionButton from 'react-native-action-button';
 
 import {Styles, Spinner} from '../common';
 import ImgPicker from '../../api/ImgPicker';
-import {promoChanged, promotionAdd,promoSaveChanged,promotionClear} from '../../actions';
+import {promoChanged, promotionAdd,promoSaveChanged,promotionClear,promoRemove} from '../../actions';
 
 let options = {
     title: 'เลือกรูปภาพ',
@@ -120,6 +121,10 @@ class PromotionEdit extends Component {
     onSubmit(){
         const { promotionName, descriptions, storeName,dateS,dateE,image,lat,long} = this.props;
         this.props.promoSaveChanged({promotionName, descriptions, storeName,dateS,dateE,image,lat,long, uid: this.props.promotion.uid});
+    }
+    onPressRemove() {
+        const { promotionName, descriptions, storeName,dateS,dateE,image,lat,long} = this.props;
+        this.props.promoRemove({promotionName, descriptions, storeName,dateS,dateE,image,lat,long, uid: this.props.promotion.uid});
     }
     onPressClear() {
         this.props.promotionClear();
@@ -249,6 +254,13 @@ class PromotionEdit extends Component {
                     is24Hour
                 />
             </View>
+            <ActionButton
+                    buttonColor="transparent"
+                    position="center"
+                    renderIcon={() => <Icon name="trash" size={30} color={'rgb(252, 65, 32)'}/>}
+                    offsetY={7}
+                    onPress={this.onPressRemove.bind(this)}
+            />
             </ScrollView>
         );
     }
@@ -285,5 +297,5 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps,{
-    promoChanged,promotionAdd,promoSaveChanged,promotionClear
+    promoChanged,promotionAdd,promoSaveChanged,promotionClear,promoRemove
 })(PromotionEdit);

@@ -27,6 +27,6 @@ export const TODO_CLEAR_STATE = 'todo_clear_state';
 export const PROMO_CHANGED = 'promo_changed';
 export const PROMO_ADD = 'promo_add';
 export const PROMO_SAVE = 'promo_save';
-export const PROMO_DELECTED = 'promo_delet';
+export const PROMO_DELECTED = 'promo_delect';
 export const PROMO_FETCH_SUSSES = 'promo_fetch_susses';
 export const PROMO_CLEAR = 'promotion_clear';

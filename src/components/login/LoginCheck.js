@@ -25,9 +25,9 @@ class LoginCheck extends Component{
    renderContent() {
         switch (this.state.loggedIn) {
           case true:
-            return Actions.main();
+            return Actions.reset('main');
           case false:
-            return Actions.login();
+            return Actions.reset('login');
           default:
             return <Spinner size="large" />;
         }

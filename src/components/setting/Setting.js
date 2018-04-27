@@ -62,7 +62,7 @@ class Setting extends Component {
     render(){
         return(
             <View style={{flex:1,backgroundColor: '#fff', justifyContent:'center', alignItems: 'center'}}>
-                <View style={{marginBottom: 10}}>
+                <View style={{marginBottom: 20}}>
                     <Avatar
                         xlarge
                         rounded
@@ -83,7 +83,7 @@ class Setting extends Component {
                     title='Log Out'
                     buttonStyle={{
                         backgroundColor: "rgb(252, 65, 32)",
-                        width: 300,
+                        width: 200,
                         height: 45,
                         borderColor: "transparent",
                         borderWidth: 0,
